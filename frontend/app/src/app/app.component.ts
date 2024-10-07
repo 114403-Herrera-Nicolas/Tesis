@@ -18,18 +18,22 @@ logout() {
 }
   title = 'app';
  
-  role: string | null = '';
+  role: String | null = '';
   logeado:boolean;
   constructor(private loginService:LoginService){
 
   }
   ngOnInit(): void {
     this.role = sessionStorage.getItem("role");
+    this.loginService.currentUserRol.subscribe(data => {
+      this.role=data;
+      console.log(data);
+    })
     this.loginService.userLoginOn.subscribe(log=>{
       this.logeado=log;
+      
     })
-    console.log(this.logeado);
-    console.log(this.role);
+
   }
   
 }

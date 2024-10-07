@@ -19,24 +19,18 @@ public class PhotoServiceImpl implements PhotoService {
         // Generar un nombre único para el archivo (para evitar conflictos)
         String uniqueFileName = UUID.randomUUID().toString() + "_" + photo.getOriginalFilename();
 
-        // Crear el directorio si no existe
         Path uploadPath = Paths.get(uploadDir);
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
 
-        // Guardar el archivo en el servidor
         Path filePath = uploadPath.resolve(uniqueFileName);
         Files.copy(photo.getInputStream(), filePath);
 
-        // Retornar la ruta del archivo o URL (según cómo manejes esto en tu aplicación)
         return filePath.toString();
     }
     public void deletePhoto(String photoUrl) throws IOException {
-        // Obtén la ruta completa del archivo basado en la URL
         Path photoPath = Paths.get(photoUrl);
-
-        // Elimina el archivo
         Files.deleteIfExists(photoPath);
     }
 

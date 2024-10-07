@@ -3,11 +3,11 @@ import { CabinService } from '../services/cabin/Cabin.service';
 import { Cabin } from '../models/Cabin';
 import { environment } from '../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-cabin-detail',
   standalone: true,
-  imports: [],
+  imports: [NgbModule],
   templateUrl: './cabin-detail.component.html',
   styleUrl: './cabin-detail.component.css'
 })

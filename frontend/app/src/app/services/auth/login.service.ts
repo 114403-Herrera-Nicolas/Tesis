@@ -12,10 +12,11 @@ export class LoginService {
 
   currentUserLoginOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   currentUserData: BehaviorSubject<String> =new BehaviorSubject<String>("");
-
+  currentUserRol:BehaviorSubject<String> =new BehaviorSubject<String>("");
   constructor(private http: HttpClient) { 
     this.currentUserLoginOn=new BehaviorSubject<boolean>(sessionStorage.getItem("token")!=null);
     this.currentUserData=new BehaviorSubject<String>(sessionStorage.getItem("token") || "");
+    this.currentUserRol=new BehaviorSubject<String>(sessionStorage.getItem("role") || "");
   }
 
   login(credentials:LoginRequest):Observable<any>{
@@ -26,6 +27,8 @@ export class LoginService {
         sessionStorage.setItem("role", userData.role);
         this.currentUserData.next(userData.token);
         this.currentUserLoginOn.next(true);
+        this.currentUserRol.next(userData.role);
+        console.log(this.currentUserLoginOn.value);
       }),
       map((userData)=> userData.token),
       catchError(this.handleError)
@@ -36,6 +39,7 @@ export class LoginService {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("role");
     this.currentUserLoginOn.next(false);
+    this.currentUserRol.next("");
   }
 
   private handleError(error:HttpErrorResponse){
@@ -51,7 +55,9 @@ export class LoginService {
   get userData():Observable<String>{
     return this.currentUserData.asObservable();
   }
-
+  get userRol():Observable<String>{
+    return this.currentUserRol.asObservable();
+  }
   get userLoginOn(): Observable<boolean>{
     return this.currentUserLoginOn.asObservable();
   }
