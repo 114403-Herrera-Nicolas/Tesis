@@ -1,0 +1,15 @@
+<div class="card" >  
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><h5 class="card-title">Filtrar por:</h5></li>
+      <li class="list-group-item features-list">
+        @for (feature of features; track $index) {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (change)="onFeatureChange(feature)">
+                <label class="form-check-label" for="flexCheckDefault">
+                  {{ feature.name }}
+                </label>
+              </div>
+        }
+      </li>
+    </ul>
+  </div>

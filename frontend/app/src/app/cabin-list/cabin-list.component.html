@@ -1,0 +1,73 @@
+
+@for (cabin of cabins; track $index) {
+<div class="container mb-5">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card d-flex flex-sm-row">
+        <img
+          [src]="baseUrl + cabin.photos[0]"
+          alt=""
+          class="img-fluid rounded img-cabin"
+          
+        />
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <a class="text-decoration-none link-cabin-detail" routerLink="/cabin/{{cabin.id}}"> <p class="card-title text-primary fs-3 mb-0">{{ cabin.name }}</p></a>
+              <p class="card-text text-muted">{{ cabin.location }}</p>
+              <p class="card-text">{{ cabin.description | truncate:100 }}</p>
+
+
+              <p class="card-text">
+                <strong>Precio por noche:</strong>
+                {{ cabin.pricePerNight | currency }}
+              </p>
+              <p class="card-text">
+                <strong>Capacidad:</strong> {{ cabin.capacity }} personas
+              </p>
+              <div class="feature-container">
+                @for (feature of cabin.features; track $index) {
+                <span
+                
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="{{ feature.description }}"
+                >
+                  {{ feature.name }}
+                </span>
+                }
+              </div>
+            </div>
+            <div class="col-auto">
+              <div class="text-center d-flex flex-row">
+                <i class="bi bi-star-fill yellow-star"></i>
+                <i class="bi bi-star-fill yellow-star"></i>
+                <i class="bi bi-star-fill yellow-star"></i>
+                <i class="bi bi-star-fill yellow-star"></i>
+                <i class="bi bi-star-fill gray-star"></i>
+                <p class="text-muted mb-0 ms-2">4.5</p>
+              </div>
+              <p class="card-text mb-1">
+                <a class="text-muted text-decoration-none" href="#"
+                  >5 comentarios</a
+                >
+              </p>
+              <button class="btn btn-success mt-auto">Reservar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+}@empty {
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h2 class=" text-muted">No hay cabines disponibles</h2>
+         <img class="img img-fluid" src="../../assets/5305369.jpg" alt="" style="max-width: 400px;">
+      </div>
+    </div>
+  </div>
+}

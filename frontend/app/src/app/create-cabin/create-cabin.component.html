@@ -1,0 +1,154 @@
+<form [formGroup]="cabinForm" (ngSubmit)="submitForm()" class="container mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label for="name" class="form-label">Nombre</label>
+        <input
+          formControlName="name"
+          type="text"
+          id="name"
+          class="form-control"
+          placeholder="Ingresa el nombre de la cabaña"
+        />
+        <div
+          *ngIf="
+            cabinForm.get('name')?.invalid && cabinForm.get('name')?.touched
+          "
+          class="text-danger"
+        >
+          El nombre es obligatorio.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label for="location" class="form-label">Ubicación</label>
+        <input
+          formControlName="location"
+          type="text"
+          id="location"
+          class="form-control"
+          placeholder="Ingresa la ubicación de la cabaña"
+        />
+        <div
+          *ngIf="
+            cabinForm.get('location')?.invalid &&
+            cabinForm.get('location')?.touched
+          "
+          class="text-danger"
+        >
+          La ubicación es obligatoria.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label">Descripción</label>
+    <textarea
+      formControlName="description"
+      id="description"
+      class="form-control"
+      placeholder="Ingresa una descripción de la cabaña"
+      rows="4"
+    ></textarea>
+    <div
+      *ngIf="
+        cabinForm.get('description')?.invalid &&
+        cabinForm.get('description')?.touched
+      "
+      class="text-danger"
+    >
+      La descripción es obligatoria.
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="mb-3">
+        <label for="pricePerNight" class="form-label">Precio por noche</label>
+        <input
+          formControlName="pricePerNight"
+          type="number"
+          id="pricePerNight"
+          class="form-control"
+          placeholder="Ingresa el precio por noche"
+        />
+        <div
+          *ngIf="
+            cabinForm.get('pricePerNight')?.invalid &&
+            cabinForm.get('pricePerNight')?.touched
+          "
+          class="text-danger"
+        >
+          El precio debe ser un número positivo.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="mb-3">
+        <label for="capacity" class="form-label">Capacidad</label>
+        <input
+          formControlName="capacity"
+          type="number"
+          id="capacity"
+          class="form-control"
+          placeholder="Ingresa la capacidad de la cabaña"
+        />
+        <div
+          *ngIf="
+            cabinForm.get('capacity')?.invalid &&
+            cabinForm.get('capacity')?.touched
+          "
+          class="text-danger"
+        >
+          La capacidad debe ser al menos 1.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-check mb-3">
+        <input
+          formControlName="availability"
+          type="checkbox"
+          id="availability"
+          class="form-check-input"
+        />
+        <label for="availability" class="form-check-label"
+          >Disponibilidad</label
+        >
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 d-flex flex-row">
+    <select class="form-select" (change)="changeFeatureSelected($event)">
+      <option value="0">Selecciona una feature</option>
+      @for (feature of features; track $index) {
+      <option value="{{ feature.id }}">
+        {{ feature.name }}
+      </option>
+      }
+    </select>
+    <button type="button" class="btn btn-primary" (click)="addFeature()">
+      Añadir
+    </button>
+  </div>
+  <div class="mb-3 feature-container">
+    
+    @for (feature of selectedFeatures; track $index) {
+    <span (click)="removeFeature($index)"> {{ feature.name }} <i class="bi bi-x"></i></span>
+    }
+  </div>
+
+  <div class="mb-3">
+    <label for="photos" class="form-label">Fotos</label>
+    <input
+      type="file"
+      id="photos"
+      class="form-control"
+      (change)="onFileSelected($event)"
+      multiple
+    />
+  </div>
+
+  <button type="submit" class="btn btn-primary">Crear Cabaña</button>
+</form>

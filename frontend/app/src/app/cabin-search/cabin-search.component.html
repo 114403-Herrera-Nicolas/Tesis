@@ -1,0 +1,105 @@
+@if(isScreenLarge){
+<form
+  class="d-flex mb-3 mt-3 input-group"
+  #searchForm="ngForm"
+  (ngSubmit)="onSubmit(searchForm)"
+>
+  <div class="form-floating">
+    <input
+      id="name"
+      type="text"
+      class="form-control"
+      placeholder="¿Qué estás buscando?"
+      name="name"
+      ngModel
+    />
+    <label for="name">¿Qué estás buscando?</label>
+  </div>
+  <div class="form-floating">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="¿A dónde vas?"
+        name="destination"
+        ngModel
+      />
+      <label for=""> ¿A donde vas?</label>
+  </div>
+  <div class="form-floating">
+
+      <input
+        type="number"
+        class="form-control"
+        placeholder="Precio Máximo"
+        name="maxPrice"
+        ngModel
+      />
+      <label for="">Precio Máximo</label>
+  </div>
+  <div class="form-floating">
+      <input
+        type="number"
+        class="form-control"
+        placeholder="Capacidad"
+        name="capacity"
+        ngModel
+      />
+      <label for="">Capacidad</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+}@else{
+  <form
+  class="row g-3 mb-3 mt-0"
+  #searchForm="ngForm"
+  (ngSubmit)="onSubmit(searchForm)"
+>
+  <div class="col-12 col-md-3 form-floating">
+    <input
+      id="name"
+      type="text"
+      class="form-control"
+      placeholder="¿Qué estás buscando?"
+      name="name"
+      ngModel
+    />
+    <label for="name">¿Qué estás buscando?</label>
+  </div>
+  <div class="col-12 col-md-3 form-floating">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="¿A dónde vas?"
+      name="destination"
+      ngModel
+    />
+    <label for="destination">¿A dónde vas?</label>
+  </div>
+  <div class="col-12 col-md-3 form-floating">
+    <input
+      type="number"
+      class="form-control"
+      placeholder="Precio Máximo"
+      name="maxPrice"
+      ngModel
+    />
+    <label for="maxPrice">Precio Máximo</label>
+  </div>
+  <div class="col-12 col-md-3 form-floating">
+    <input
+      type="number"
+      class="form-control"
+      placeholder="Capacidad"
+      name="capacity"
+      ngModel
+    />
+    <label for="capacity">Capacidad</label>
+  </div>
+  <div class="col-12 d-grid">
+    <button type="submit" class="btn btn-primary">Buscar</button>
+  </div>
+</form>
+
+}
+

@@ -1,0 +1,14 @@
+.feature-container span{
+    position: relative;
+    color: #ffff;
+    background-color: grey;
+    margin-right: 5px;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 5px;
+    cursor: default;
+    
+}
+.feature-container span:hover{
+    background-color: rgb(177, 52, 52);
+}

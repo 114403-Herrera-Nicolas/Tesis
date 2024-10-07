@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+.feature-container span{
+    position: relative;
+    color: #ffff;
+    background-color: grey;
+    margin-right: 5px;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 5px;
+    cursor: default;
+}
+.yellow-star {
+    color: #ffa723;
+}
+
+.gray-star {
+    color: gray;
+}
