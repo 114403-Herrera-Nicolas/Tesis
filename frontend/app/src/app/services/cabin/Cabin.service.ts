@@ -9,6 +9,8 @@ import { LoginService } from '../auth/login.service';
   providedIn: 'root'
 })
 export class CabinService {
+  private selectedCabin:Cabin;
+ 
   private name?: string;
   private location?: string;
   private minPrice?: number=0;
@@ -16,6 +18,12 @@ export class CabinService {
   private capacity?: number;
   private featureIds?: number[];
 
+  selectedcabin(cabin: Cabin) {
+    this.selectedCabin=cabin;
+   }
+   getSelectedCabin():Cabin{
+    return this.selectedCabin;
+   }
   // Almacenar y observar la lista de cabañas
   private cabinsSubject: BehaviorSubject<Cabin[]> = new BehaviorSubject<Cabin[]>([]);
   public cabins$: Observable<Cabin[]> = this.cabinsSubject.asObservable(); // Exponer como Observable

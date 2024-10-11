@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LoginRequest } from '../../services/auth/loginRequest';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
@@ -11,7 +11,11 @@ import { CommonModule } from '@angular/common';
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule,
-    HttpClientModule ,
+    
+// TODO: `HttpClientModule` should not be imported into a component directly.
+// Please refactor the code to add `provideHttpClient()` call to the provider list in the
+// application bootstrap logic and remove the `HttpClientModule` import from this component.
+HttpClientModule ,
     ReactiveFormsModule,
     RouterOutlet,
     RouterLink,
@@ -20,6 +24,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  @Input() redirect:boolean=true;
+  @Output() loginEvent=new EventEmitter<boolean>();
   loginError:string="";
   loginForm=this.formBuilder.group({
     username:['',[Validators.required]],
@@ -52,7 +58,11 @@ export class LoginComponent {
         },
         complete: () => {
           console.info("Login completo");
-          this.router.navigateByUrl('/cabins');
+          if (this.redirect) {
+            this.router.navigateByUrl('/cabins');
+          }else{
+            this.loginEvent.emit(true);
+          }
           this.loginForm.reset();
         }
       })

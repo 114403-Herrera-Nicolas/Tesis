@@ -31,6 +31,8 @@ public class AuthService {
         return AuthResponse.builder()
             .token(token)
                 .role(role)
+                .userName(user.getUsername())
+
             .build();
 
     }
@@ -41,7 +43,7 @@ public class AuthService {
             .password(passwordEncoder.encode( request.getPassword()))
             .firstname(request.getFirstname())
             .lastname(request.lastname)
-            .country(request.getCountry())
+
             .role(Role.USER)
             .build();
 
@@ -50,6 +52,7 @@ public class AuthService {
         return AuthResponse.builder()
             .token(jwtService.getToken(user))
                 .role(Role.USER)
+                .userName(user.getUsername())
             .build();
         
     }

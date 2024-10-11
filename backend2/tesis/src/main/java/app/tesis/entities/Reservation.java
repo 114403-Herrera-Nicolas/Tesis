@@ -35,9 +35,11 @@ public class Reservation {
 
     private LocalDate endDate;
 
-    private BigDecimal totalPrice;
+    private BigDecimal priceForNight;
+    private Integer totalNights;
 
-    private String status; // e.g., "Confirmed", "Pending", "Cancelled"
+    @Enumerated(EnumType.STRING)
+    private ReservationState status;
 
     @OneToOne
     @JoinColumn(name = "payment_id",referencedColumnName = "id")

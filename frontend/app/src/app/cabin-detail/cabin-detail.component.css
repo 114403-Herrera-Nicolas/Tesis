@@ -1,7 +1,9 @@
 .img-cabin-carrusel{
   height: 500px;
 }
-
+.img-cabin-carrusel div{
+  height: 500px;
+}
 
 
 .reviews-container{
@@ -13,7 +15,9 @@
   .img-cabin-carrusel{
     height: 200px;
   }
-  
+  .img-cabin-carrusel div{
+    height: 200px;
+  }
 
 
 .reviews-container{

@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="d-flex flex-column align-items-center justify-content-center">
+        <h3 class="mb-3">¿Qué días quieres reservar?</h3>
+        <app-datepicker-range
+          [displayMonths]="2"
+          [disabledDays]="transformedReservedDates"
+          [disabledDatePicker]="false"
+          (fromDateChange)="onFromDateChange($event)"
+          (toDateChange)="onToDateChange($event)"
+          (daysSelected)="onToDaysChange($event)"
+        ></app-datepicker-range>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-center">
+      <h5 class="mb-3">Detalles de la Reserva</h5> <!-- Título más destacado -->
+      <p class="lead">Cabaña: <strong>{{ cabin.name }}</strong></p>
+      <p class="lead">Precio por dia: <strong>{{ cabin.pricePerNight | currency }}</strong></p>
+      <p class="lead">Dias seleccionados: <strong>{{ daysSelected }}</strong></p>
+      <p class="lead">Total: <strong>{{ cabin.pricePerNight * daysSelected | currency }}</strong></p>
+       <button class="btn btn-success" [disabled]="daysSelected==0" (click)="confirmReservation()">Confirmar Reserva</button> 
+       <div id="wallet_container"></div>
+    </div>
+  </div>
+  
+</div>

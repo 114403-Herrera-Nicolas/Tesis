@@ -9,8 +9,8 @@ export interface Cabin {
     pricePerNight: number,
     capacity: number,
     photos: string[],
-    features:Feature[] 
-      
+    features:Feature[] ,
+    reservedDates: number[][]; 
 }
 
 

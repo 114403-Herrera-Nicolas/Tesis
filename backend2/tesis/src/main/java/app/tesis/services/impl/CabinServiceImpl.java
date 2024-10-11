@@ -7,9 +7,12 @@ import app.tesis.dtos.cabin.GetCabinDto;
 import app.tesis.dtos.cabin.UpdateCabinRequest;
 import app.tesis.dtos.feature.FeatureDto;
 import app.tesis.entities.Feature;
+import app.tesis.entities.Reservation;
 import app.tesis.repositories.CabinRepository;
 import app.tesis.repositories.FeatureRepository;
+import app.tesis.repositories.ReservationRepository;
 import app.tesis.services.PhotoService;
+import app.tesis.services.ReservationService;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -22,6 +25,7 @@ import app.tesis.services.CabinService;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -39,6 +43,8 @@ public class CabinServiceImpl implements CabinService {
     private FeatureRepository featureRepository;
     @Autowired
     private EntityManager entityManager;
+    @Autowired
+    private ReservationRepository reservationRepository;
 
 
     @Autowired
@@ -119,17 +125,40 @@ public class CabinServiceImpl implements CabinService {
     @Override
     public GetCabinDto getCabinById(Long id) {
         Optional<Cabin> cabinOptional = cabinRepository.findById(id);
-        if (cabinOptional.isPresent()){
+        if (cabinOptional.isPresent()) {
             Cabin cabin = cabinOptional.get();
-            Set<FeatureDto> features= getFeaturesDtoByCabinId(cabin.getId());
+            Set<FeatureDto> features = getFeaturesDtoByCabinId(cabin.getId());
+
+            // Obtener las fechas reservadas
+            List<LocalDate> reservedDates = getReservedDatesByCabinId(cabin.getId());
+
             GetCabinDto dto = modelMapper.map(cabin, GetCabinDto.class);
             dto.setFeatures(features);
+            dto.setReservedDates(reservedDates); // Asumiendo que has agregado este campo en GetCabinDto
             return dto;
         }
 
-    throw new RuntimeException("No existe la cabaña con id: "+ id);
+        throw new RuntimeException("No existe la cabaña con id: " + id);
+    }
 
+    // Método para obtener las fechas reservadas por cabaña
+    private List<LocalDate> getReservedDatesByCabinId(Long cabinId) {
+        List<Reservation> reservations = reservationRepository.findByCabinId(cabinId);
+        List<LocalDate> reservedDates = new ArrayList<>();
 
+        for (Reservation reservation : reservations) {
+            LocalDate startDate = reservation.getStartDate(); // Suponiendo que tienes estos métodos
+            LocalDate endDate = reservation.getEndDate(); // Suponiendo que tienes estos métodos
+            LocalDate date = startDate;
+
+            // Agregar todas las fechas del rango de la reserva
+            while (!date.isAfter(endDate)) {
+                reservedDates.add(date);
+                date = date.plusDays(1);
+            }
+        }
+
+        return reservedDates;
     }
 
     @Override

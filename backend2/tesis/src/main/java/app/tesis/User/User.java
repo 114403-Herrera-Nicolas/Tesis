@@ -1,5 +1,6 @@
 package app.tesis.User;
 
+import app.tesis.entities.Reservation;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,10 +29,13 @@ public class User implements UserDetails {
     @Column(nullable = false)
     String lastname;
     String firstname;
-    String country;
+
     String password;
     @Enumerated(EnumType.STRING) 
     Role role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Reservation> reservations;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,33 +1,58 @@
 <div class="d-flex flex-column align-items-center">
-    <form [formGroup]="loginForm" style="max-width: 500px;">
-        <h2 class="text-center">Inicia Sesion en tu cuenta</h2>
-        <p class="text-danger">{{loginError}}</p>
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Email</label>
-          <input formControlName="username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">  
-            <div *ngIf="email.invalid && (email.dirty || email.touched)"
-                class="text-danger">
-                <div *ngIf="email.errors?.['required']">
-                    El Email es requerido.
-                </div>
-                <div *ngIf="email.errors?.['email']">
-                    El Email debe tener un formato válido.
-                </div>
-            </div>
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-          <input formControlName="password" type="password" class="form-control" id="exampleInputPassword1">
-            <div *ngIf="password.invalid && (password.dirty || password.touched)"
-                class="text-danger">
-                <div *ngIf="password.errors?.['required']">
-                    La Contraseña es requerida
-                </div>
-            </div> 
-        </div>
-        <button [disabled]="!loginForm.valid" type="submit" (click)="login()" class="btn btn-primary">Iniciar Sesión</button>
-        <p>No tienes cuenta? <a routerLink='/register'> Crear cuenta</a></p>
-    </form>
-    
-    
+  <form [formGroup]="loginForm" style="max-width: 500px">
+    <h2 class="text-center">Inicia Sesion en tu cuenta</h2>
+    <p class="text-danger">{{ loginError }}</p>
+
+    <div class="form-floating mb-3">
+      <input
+        formControlName="username"
+        type="email"
+        class="form-control"
+        id="floatingInput"
+        placeholder="name@example.com"
+      />
+      <label for="floatingInput">Email</label>
+      <div
+      *ngIf="email.invalid && (email.dirty || email.touched)"
+      class="text-danger"
+    >
+      <div *ngIf="email.errors?.['required']">El Email es requerido.</div>
+      <div *ngIf="email.errors?.['email']">
+        El Email debe tener un formato válido.
+      </div>
+    </div>
+    </div>
+
+   
+    <div class="form-floating">
+      <input
+        formControlName="password"
+        type="password"
+        class="form-control"
+        id="floatingPassword"
+        placeholder="Password"
+      />
+      <label for="floatingPassword">Contraseña</label>
+    </div>
+    <div
+      *ngIf="password.invalid && (password.dirty || password.touched)"
+      class="text-danger"
+    >
+      <div *ngIf="password.errors?.['required']">
+        La Contraseña es requerida
+      </div>
+    </div>
+    <button
+      [disabled]="!loginForm.valid"
+      type="submit"
+      (click)="login()"
+      class="btn btn-primary mt-2"
+      style="width: 100%;"
+    >
+      Iniciar Sesión
+    </button>
+    @if (redirect) {
+    <p>No tienes cuenta? <a routerLink="/register"> Crear cuenta</a></p>
+    }
+  </form>
 </div>

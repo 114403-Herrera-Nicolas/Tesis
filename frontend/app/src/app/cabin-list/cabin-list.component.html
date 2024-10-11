@@ -1,5 +1,5 @@
 
-@for (cabin of cabins; track $index) {
+@for (cabin of displayedCabins ; track $index) {
 <div class="container mb-5">
   <div class="row">
     <div class="col-md-12">
@@ -52,7 +52,7 @@
                   >5 comentarios</a
                 >
               </p>
-              <button class="btn btn-success mt-auto">Reservar</button>
+              <button class="btn btn-success mt-auto"  routerLink="/cabin/{{cabin.id}}">Reservar</button>
             </div>
           </div>
         </div>
@@ -71,3 +71,11 @@
     </div>
   </div>
 }
+<div class="d-flex justify-content-center">
+  <ngb-pagination 
+  [collectionSize]="cabins.length" 
+  [(page)]="currentPage" 
+  [pageSize]="itemsPerPage"
+  (pageChange)="onPageChange($event)">
+</ngb-pagination>
+</div>
