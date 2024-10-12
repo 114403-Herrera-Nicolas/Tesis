@@ -4,6 +4,7 @@ import { LoginRequest } from './loginRequest';
 import  {  Observable, throwError, catchError, BehaviorSubject , tap, map} from 'rxjs';
 import { User } from './user';
 import { environment } from '../../../environments/environment';
+import { RegisterRequest } from '../../models/RegisterRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,22 @@ export class LoginService {
         this.currentUserData.next(userData.token);
         this.currentUserLoginOn.next(true);
         this.currentUserRol.next(userData.role);
-        console.log(this.currentUserLoginOn.value);
+        
+      }),
+      map((userData)=> userData.token),
+      catchError(this.handleError)
+    );
+  }
+  register(credentials:RegisterRequest):Observable<any>{
+    return this.http.post<any>(environment.urlHost+"auth/register",credentials).pipe(
+      tap( (userData) => {
+        sessionStorage.setItem("token", userData.token);
+        sessionStorage.setItem("username", credentials.username);
+        sessionStorage.setItem("role", userData.role);
+        this.currentUserData.next(userData.token);
+        this.currentUserLoginOn.next(true);
+        this.currentUserRol.next(userData.role);
+        
       }),
       map((userData)=> userData.token),
       catchError(this.handleError)

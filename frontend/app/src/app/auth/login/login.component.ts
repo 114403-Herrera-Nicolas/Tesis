@@ -11,11 +11,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule,
-    
-// TODO: `HttpClientModule` should not be imported into a component directly.
-// Please refactor the code to add `provideHttpClient()` call to the provider list in the
-// application bootstrap logic and remove the `HttpClientModule` import from this component.
-HttpClientModule ,
     ReactiveFormsModule,
     RouterOutlet,
     RouterLink,
@@ -49,15 +44,13 @@ export class LoginComponent {
     if(this.loginForm.valid){
       this.loginError="";
       this.loginService.login(this.loginForm.value as LoginRequest).subscribe({
-        next: (userData) => {
-          console.log(userData);
-        },
+        
         error: (errorData) => {
           console.error(errorData);
           this.loginError=errorData;
         },
         complete: () => {
-          console.info("Login completo");
+          
           if (this.redirect) {
             this.router.navigateByUrl('/cabins');
           }else{
