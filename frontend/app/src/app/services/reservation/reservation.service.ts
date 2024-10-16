@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { ReservationRequest } from '../../models/ReservationRequest';
 import { LoginService } from '../auth/login.service';
+import { ReservationDto } from '../../models/ReservationDto';
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,10 @@ export class ReservationService {
     return this.http.post<any>('http://localhost:8080/api/v1/reservation', request, { headers });
   }
   
-
+  public getReservationsByUserid(userId:number): Observable<ReservationDto[]> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.loginService.userToken}`, // Incluir el token en las cabeceras
+    });
+    return this.http.get<ReservationDto[]>('http://localhost:8080/api/v1/reservation/'+userId,{ headers });
+  }
 }

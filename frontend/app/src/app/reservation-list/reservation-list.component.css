@@ -1,0 +1,15 @@
+.img-cabin{
+    width: 200px !important;
+}
+
+
+
+.link-cabin-detail p:hover{
+    color: #ffa723 !important;
+}
+
+@media (max-width: 576px) {
+    .img-cabin{
+        width: 100% !important;
+    }
+}

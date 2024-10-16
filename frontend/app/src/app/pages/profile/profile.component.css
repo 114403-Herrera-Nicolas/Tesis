@@ -1,0 +1,9 @@
+
+.second-column{
+    padding: 0;
+}
+@media (min-width: 768px) {
+    .second-column{
+        padding-left: 3rem;
+    }
+}

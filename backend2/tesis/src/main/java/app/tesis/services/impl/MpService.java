@@ -35,7 +35,7 @@ public class MpService {
         //id de mi orden
         String MiOrdenId= String.valueOf(reservation.getId());
         // Configura la URL de notificación
-        String notificationUrl = "https://07b0-190-96-112-182.ngrok-free.app/api/mercadopago/webhook/"+MiOrdenId;
+        String notificationUrl = "https://3b6d-190-96-112-182.ngrok-free.app/api/v1/reservation/webhook/"+MiOrdenId;
 
         PreferenceRequest preferenceRequest = PreferenceRequest.builder()
                 .items(items)

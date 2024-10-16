@@ -1,58 +1,68 @@
-<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-  <div class="container">
-    <a class="navbar-brand " routerLink="/cabins"><i class="bi bi-house-fill"></i> Cabañas</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        
-        @if (role == "ADMIN") {
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/cabin/create">Crear cabaña</a>
-          </li>
-        }
-      </ul>
-      <div>
-        @if (!logeado) {
-        <a routerLink="/login">
-          <button type="button" class="btn btn-primary">Login</button>
-        </a>
-      }@else {
-        <button type="button" class="btn btn-primary" (click)="logout()">Logout</button>
-      }
+<div class="wrapper">
+  <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+      <div class="container">
+          <a class="navbar-brand" routerLink="/cabins"><i class="bi bi-house-fill"></i> Cabañas</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  @if (role == "ADMIN") {
+                      <li class="nav-item">
+                          <a class="nav-link" routerLink="/cabin/create">Crear cabaña</a>
+                      </li>
+                  }
+              </ul>
+              <div>
+                  @if (!logeado) {
+                      <a routerLink="/login">
+                          <button type="button" class="btn btn-primary">Iniciar sesión</button>
+                      </a>
+                  } @else {
+                      <div class="dropdown d-flex align-items-center justify-content-center">
+                          <div class="circle" data-bs-toggle="dropdown" aria-expanded="false">
+                              {{ user.firstName | slice:0:1 | uppercase }}
+                          </div>
+                          <ul class="dropdown-menu dropdown-menu-end">
+                              <li><a class="dropdown-header">Bienvenido, <strong>{{ user.firstName }}</strong></a></li>
+                              <li><a class="dropdown-item cursor-pointer" routerLink="/profile">Mi perfil</a></li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="dropdown-item cursor-pointer" (click)="logout()">Cerrar sesión</a></li>
+                          </ul>
+                      </div>
+                  }
+              </div>
+          </div>
       </div>
-    </div>
+  </nav>
+  <div class="container-fluid container-lg mt-3 content">
+      <router-outlet></router-outlet>
   </div>
-</nav>
-<div class="container-fluid container-lg mt-5" >
-  <router-outlet></router-outlet>
+  <footer class="bg-dark text-white text-center py-4 mt-auto">
+      <div class="container">
+          <p>&copy; 2024 ZambottiNico. Todos los derechos reservados.</p>
+          <ul class="list-inline">
+              <li class="list-inline-item">
+                  <a href="#" class="text-white">Términos de servicio</a>
+              </li>
+              <li class="list-inline-item">
+                  <a href="#" class="text-white">Política de privacidad</a>
+              </li>
+              <li class="list-inline-item">
+                  <a href="#" class="text-white">Contacto</a>
+              </li>
+          </ul>
+          <div class="mt-3">
+              <a href="#" class="text-white me-3">
+                  <i class="bi bi-facebook"></i>
+              </a>
+              <a href="#" class="text-white me-3">
+                  <i class="bi bi-twitter"></i>
+              </a>
+              <a href="#" class="text-white">
+                  <i class="bi bi-instagram"></i>
+              </a>
+          </div>
+      </div>
+  </footer>
 </div>
-
-<footer class="bg-dark text-white text-center py-4 mt-5">
-  <div class="container">
-    <p>&copy; 2024 ZambottiNico. Todos los derechos reservados.</p>
-    <ul class="list-inline">
-      <li class="list-inline-item">
-        <a href="#" class="text-white">Términos de servicio</a>
-      </li>
-      <li class="list-inline-item">
-        <a href="#" class="text-white">Política de privacidad</a>
-      </li>
-      <li class="list-inline-item">
-        <a href="#" class="text-white">Contacto</a>
-      </li>
-    </ul>
-    <div class="mt-3">
-      <a href="#" class="text-white me-3">
-        <i class="bi bi-facebook"></i>
-      </a>
-      <a href="#" class="text-white me-3">
-        <i class="bi bi-twitter"></i>
-      </a>
-      <a href="#" class="text-white">
-        <i class="bi bi-instagram"></i>
-      </a>
-    </div>
-  </div>
-</footer>

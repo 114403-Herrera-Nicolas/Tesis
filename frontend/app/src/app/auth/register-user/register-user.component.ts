@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { LoginService } from '../../services/auth/login.service';
 import { RegisterRequest } from '../../models/RegisterRequest';
@@ -14,6 +14,7 @@ import { RegisterRequest } from '../../models/RegisterRequest';
 })
 export class RegisterUserComponent {
 registerError: any;
+registerForm: FormGroup;
 login() {
     if (this.registerForm.valid) {
       console.log(this.registerForm.value)
@@ -44,35 +45,50 @@ login() {
   @Input() redirect: boolean = true;
   @Output() loginEvent = new EventEmitter<boolean>();
   get email(){
-    return this.registerForm.controls.username;
+    return this.registerForm.controls['username'];
   }
 
   get password()
   {
-    return this.registerForm.controls.password;
+    return this.registerForm.controls['password'];
   }
   get passwordCopy()
   {
-    return this.registerForm.controls.passwordCopy;
+    return this.registerForm.controls['passwordCopy'];
   }
   get lastname()
   {
-    return this.registerForm.controls.lastname;
+    return this.registerForm.controls['lastname'];
   }
   get firstname()
   {
-    return this.registerForm.controls.firstname;
+    return this.registerForm.controls['firstname'];
   }
-  constructor(private formBuilder:FormBuilder, private router:Router, private loginService: LoginService) { }
+  constructor(private formBuilder:FormBuilder, private router:Router, private loginService: LoginService) {
+    this.registerForm = this.formBuilder.group({
+      username: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      passwordCopy: ['', Validators.required],
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+    }, {
+      validators: matchingFieldsValidator('password', 'passwordCopy') 
+    });
+   }
 
-  registerForm=this.formBuilder.group({
-    username:['',[Validators.required]],
-    password: ['',Validators.required],
-    passwordCopy:["",Validators.required],
-    firstname:["",Validators.required],
-    lastname:["",Validators.required],
-
-
-
-  })
+ 
 }
+function matchingFieldsValidator(field1: string, field2: string): ValidatorFn  {
+  return (formGroup: AbstractControl) => {
+    const control1 = formGroup.get(field1);
+    const control2 = formGroup.get(field2);
+
+    if (!control1 || !control2) {
+      return null; 
+    }
+
+    const areFieldsMatching = control1.value === control2.value;
+    return areFieldsMatching ? null : { fieldsDoNotMatch: true };
+  };
+}
+

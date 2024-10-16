@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container bg-white p-3 mb-5">
   <div class="row">
-    <div class="col">
+    <div class="col ">
       <div class="d-flex flex-column align-items-center justify-content-center">
         <h3 class="mb-3">¿Qué días quieres reservar?</h3>
         <app-datepicker-range
@@ -21,7 +21,16 @@
       <p class="lead">Precio por dia: <strong>{{ cabin.pricePerNight | currency }}</strong></p>
       <p class="lead">Dias seleccionados: <strong>{{ daysSelected }}</strong></p>
       <p class="lead">Total: <strong>{{ cabin.pricePerNight * daysSelected | currency }}</strong></p>
-       <button class="btn btn-success" [disabled]="daysSelected==0" (click)="confirmReservation()">Confirmar Reserva</button> 
+       @if (showLoader) {
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div> 
+       }@else {
+        @if (!btnMpExist) {
+          <button class="btn btn-success" [disabled]="daysSelected==0" (click)="confirmReservation()">Confirmar Reserva</button>
+
+        }
+       }
        <div id="wallet_container"></div>
     </div>
   </div>

@@ -1,8 +1,9 @@
 @if (cabin) {
-  <div class="d-flex flex-row align-items-center">
+  <div class="bg-white p-3 mb-3">
+  <div class="d-flex flex-row align-items-center ">
     <h1 class="text-primary me-3">{{ cabin.name }}  </h1>
     @if (role == 'ADMIN') {
-    <a href=""> <i class="bi bi-pencil-square h1"></i></a>
+    <a [routerLink]="['/cabin-update/', cabin.id]"> <i class="bi bi-pencil-square h1"></i></a>
     }
   </div>
   
@@ -87,7 +88,7 @@
           <div class="container d-flex flex-column align-items-center">
             <app-datepicker-range [displayMonths]="1" [disabledDays]="transformedReservedDates" [disabledDatePicker]="true"></app-datepicker-range>
             @if (userLoginOn) {
-              <button class="btn btn-success mt-2" (click)="navigateToReservation()">Reservar</button>
+              <button class="btn btn-success mt-2 w-100"  (click)="navigateToReservation()"><i class="bi bi-calendar-check"></i>  Reservar</button>
   
             }@else {
               <button class="btn btn-success mt-2"  (click)="open(content)">Reservar</button>
@@ -125,10 +126,10 @@
       <ng-template #content let-modal>
         <div class="container py-5 d-flex flex-column align-items-center">
           @if (isLoginMode) {
-            <app-login (loginEvent)="modal.dismiss('Cross click')" [redirect]="false"></app-login>
+            <app-login (loginEvent)="modal.dismiss('login')" [redirect]="false"></app-login>
             <p>No tienes cuenta? <a class="text-primary " style="cursor: pointer;" (click)="switchToRegister()"> Crear cuenta</a></p>
           }@else {
-            <app-register-user (redirect)="false"></app-register-user>
+            <app-register-user (loginEvent)="modal.dismiss('register')" [redirect]="false"></app-register-user>
             <p>¿Ya tienes una cuenta? <a class="text-primary " style="cursor: pointer;"  (click)="switchToLogin()">Inicia sesión aquí</a></p>
           }
         </div>
@@ -137,7 +138,7 @@
   
       
 
-
+    </div>
 }@else {
   <div class="container">
     <h1>upsss</h1>

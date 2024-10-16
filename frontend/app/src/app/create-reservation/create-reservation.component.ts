@@ -6,6 +6,8 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { CurrencyPipe, JsonPipe } from '@angular/common';
 import { ReservationService } from '../services/reservation/reservation.service';
 import { ReservationRequest } from '../models/ReservationRequest';
+import { LoginService } from '../services/auth/login.service';
+import { Router } from '@angular/router';
 declare var MercadoPago: any;
 declare var bricksBuilder: any;
 @Component({
@@ -16,7 +18,7 @@ declare var bricksBuilder: any;
   styleUrl: './create-reservation.component.css'
 })
 export class CreateReservationComponent {
-  
+  userLoginOn: boolean;
 
   request:ReservationRequest={
     cabinId:0,
@@ -31,11 +33,18 @@ export class CreateReservationComponent {
 
   fromDate: NgbDateStruct | null = null;
   toDate: NgbDateStruct | null = null;
+showLoader: boolean=false;
+btnMpExist: boolean=false;
   ngOnInit(){
-   
+    this.loginService.userLoginOn.subscribe(loged=>{
+      if (!loged) {
+        this.router.navigate(['/login']);
+      }
+    })
 
   }
   confirmReservation() {
+    this.showLoader=true;
     console.log("aa")
     if (this.daysSelected > 0) {
       this.request.cabinId = this.cabin.id;
@@ -65,6 +74,8 @@ export class CreateReservationComponent {
 
 
 
+        this.showLoader=false;
+        this.btnMpExist=true;
       });
     }
   }
@@ -92,7 +103,7 @@ onToDaysChange($event: number) {
     this.toDate = date;
   }
  
-  constructor(private cabinService:CabinService,private reservationService:ReservationService){
+  constructor(private router: Router,private loginService:LoginService,private cabinService:CabinService,private reservationService:ReservationService){
     this.cabin=cabinService.getSelectedCabin();
     this.transformReservedDates(this.cabin.reservedDates);
   }

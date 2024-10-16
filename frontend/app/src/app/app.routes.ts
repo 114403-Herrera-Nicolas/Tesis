@@ -7,6 +7,8 @@ import { SearchCabinPageComponent } from './pages/search-cabin-page/search-cabin
 import { CreateCabinComponent } from './create-cabin/create-cabin.component';
 import { CabinDetailComponent } from './cabin-detail/cabin-detail.component';
 import { CreateReservationComponent } from './create-reservation/create-reservation.component';
+import { UpdateCabinComponent } from './update-cabin/update-cabin.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 export const routes: Routes = [
     {path:"login", component:LoginComponent},
@@ -16,5 +18,8 @@ export const routes: Routes = [
     {path:"cabins",component:SearchCabinPageComponent},
     {path:"cabin/create",component:CreateCabinComponent},
     {path:"cabin/:id",component:CabinDetailComponent},
-    {path:"reservation",component:CreateReservationComponent}
+    {path:"cabin-update/:id",component:UpdateCabinComponent},
+    {path:"reservation",component:CreateReservationComponent},
+    {path:"profile",component:ProfileComponent},
+
 ];

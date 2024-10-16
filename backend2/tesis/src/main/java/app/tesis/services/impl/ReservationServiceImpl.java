@@ -2,6 +2,7 @@ package app.tesis.services.impl;
 
 import app.tesis.User.User;
 import app.tesis.User.UserRepository;
+import app.tesis.dtos.reservation.GetReservationByUserResponse;
 import app.tesis.dtos.reservation.ReservationRequest;
 import app.tesis.dtos.reservation.ReservationResponse;
 import app.tesis.entities.Cabin;
@@ -12,6 +13,8 @@ import app.tesis.repositories.ReservationRepository;
 import app.tesis.services.ReservationService;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
+import com.mercadopago.resources.merchantorder.MerchantOrderPayment;
+import com.mercadopago.resources.payment.Payment;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -79,6 +84,55 @@ public class ReservationServiceImpl implements ReservationService {
         ReservationResponse response = modelMapper.map(reservation,ReservationResponse.class);
        response.setPreferenceId(preferenceId);
         return response; // Deberías retornar una respuesta apropiada
+    }
+
+    @Override
+    public List<GetReservationByUserResponse> getReservationsByUserId(Long userId) {
+        List<Reservation> reservations = reservationRepository.findByUserId(Math.toIntExact(userId));
+        List<GetReservationByUserResponse> rta = new ArrayList<>();
+        reservations.forEach(reservation -> {
+            GetReservationByUserResponse response= modelMapper.map(reservation, GetReservationByUserResponse.class);
+            response.setUrlPhotoPreview(reservation.getCabin().getPhotos().get(0));
+            response.setCabinName(reservation.getCabin().getName());
+            rta.add(response);
+        });
+        return rta;
+    }
+
+    @Override
+    public void updateReservationState(Integer id, ReservationState reservationState) {
+        Reservation reservation = reservationRepository.getReferenceById(Long.valueOf(id));
+        reservation.setStatus(reservationState);
+        reservationRepository.save(reservation);
+    }
+
+    @Override
+    public void updateStatusFromPayment(Long id,Payment payment) {
+        Reservation reservation = reservationRepository.getReferenceById(id);
+
+        switch (payment.getStatus()){
+            case "paid": reservation.setStatus(ReservationState.COMPLETED);
+
+        }
+
+
+        reservationRepository.save(reservation);
+    }
+
+    @Override
+    public void updateStatusFromOrder(List<MerchantOrderPayment> payments,Long id) {
+        payments.forEach(payment->{
+            Reservation reservation = reservationRepository.findById(id).orElseThrow(() -> new RuntimeException("Reservación no encontrada"));
+            if (payment.getStatus().equals("approved")){
+                reservation.setStatus(ReservationState.COMPLETED);
+            }
+            else if (payment.getStatus().equals("cancelled")){
+                reservation.setStatus(ReservationState.CANCELLED);
+            } else if (payment.getStatus().equals("refunded")) {
+                reservation.setStatus(ReservationState.REFUNDED);
+            }
+            reservationRepository.save(reservation);
+        });
     }
 
 

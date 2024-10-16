@@ -16,3 +16,11 @@
 .gray-star {
     color: gray;
 }
+body{
+    background-color: #ebebeb;
+}
+
+.bg-white{
+    background-color: white;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15)!important;
+}

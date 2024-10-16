@@ -8,6 +8,7 @@ import app.tesis.dtos.cabin.UpdateCabinRequest;
 import app.tesis.dtos.feature.FeatureDto;
 import app.tesis.entities.Feature;
 import app.tesis.entities.Reservation;
+import app.tesis.entities.ReservationState;
 import app.tesis.repositories.CabinRepository;
 import app.tesis.repositories.FeatureRepository;
 import app.tesis.repositories.ReservationRepository;
@@ -147,14 +148,16 @@ public class CabinServiceImpl implements CabinService {
         List<LocalDate> reservedDates = new ArrayList<>();
 
         for (Reservation reservation : reservations) {
-            LocalDate startDate = reservation.getStartDate(); // Suponiendo que tienes estos métodos
-            LocalDate endDate = reservation.getEndDate(); // Suponiendo que tienes estos métodos
-            LocalDate date = startDate;
+            if (!reservation.getStatus().equals(ReservationState.CANCELLED)){
+                LocalDate startDate = reservation.getStartDate(); // Suponiendo que tienes estos métodos
+                LocalDate endDate = reservation.getEndDate(); // Suponiendo que tienes estos métodos
+                LocalDate date = startDate;
 
-            // Agregar todas las fechas del rango de la reserva
-            while (!date.isAfter(endDate)) {
-                reservedDates.add(date);
-                date = date.plusDays(1);
+                // Agregar todas las fechas del rango de la reserva
+                while (!date.isAfter(endDate)) {
+                    reservedDates.add(date);
+                    date = date.plusDays(1);
+                }
             }
         }
 

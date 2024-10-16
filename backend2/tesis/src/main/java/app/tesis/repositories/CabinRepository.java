@@ -35,4 +35,5 @@ public interface CabinRepository extends JpaRepository<Cabin,Long> {
 
 
 
+
 }

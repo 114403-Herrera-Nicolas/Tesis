@@ -1,0 +1,52 @@
+
+@for (reservation of reservations; track $index) {
+
+    <div class="card d-flex flex-sm-row mb-3">
+        <img
+          [src]="baseUrl + reservation.urlPhotoPreview"
+          alt=""
+          class="img-fluid rounded img-cabin"
+          
+        />
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+                <a class="text-decoration-none link-cabin-detail" routerLink="/cabin/{{reservation.cabinId}}"> <p class="card-title text-primary fs-3 mb-0">{{ reservation.cabinName }}</p></a>
+              <p class="card-text text-muted">{{ reservation.startDate | date }} - {{ reservation.endDate | date }}</p>
+             
+
+
+              <p class="card-text">
+                <strong>Precio por noche:</strong>
+                {{ reservation.priceForNight | currency }}
+              </p>
+              <p class="card-text">
+                <strong>Precio por noche:</strong>
+                {{ reservation.totalNights }}
+              </p>
+              <p class="card-text">
+                <strong>Total:</strong>
+                {{ reservation.totalNights * reservation.priceForNight | currency }}
+              </p>
+            </div>
+            <div class="col-auto">
+                <h2>{{ reservation.status }}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+}
+@empty {
+    <div class="container">
+      <div class="row">
+        <div class="col d-flex flex-column ">
+          <h3 class=" text-muted">Aun no has reservado ninguna cabaña</h3>
+          <a routerLink="/cabins">Reserva tu cabaña ideal ahora!</a>
+
+
+           <img class="img img-fluid" src="../../assets/9315315.jpg" alt="" style="max-width: 400px;">
+            
+        </div>
+      </div>
+    </div>
+  }

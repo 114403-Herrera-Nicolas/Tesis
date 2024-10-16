@@ -21,9 +21,8 @@ public class Reservation {
     private Long id;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cabin_id", referencedColumnName = "id")
-    @JsonBackReference
     private Cabin cabin;
 
     @ManyToOne(fetch = FetchType.LAZY)
