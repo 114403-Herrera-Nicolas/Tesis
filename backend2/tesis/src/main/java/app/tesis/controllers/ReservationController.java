@@ -38,7 +38,11 @@ public class ReservationController {
     public ResponseEntity<ReservationResponse> createReservation(@RequestBody ReservationRequest createReservationDto) throws MPException, MPApiException {
       return ResponseEntity.ok(reservationService.createReservation(createReservationDto));
     }
-    @GetMapping("/{userId}")
+    @GetMapping("/{id}")
+    public ResponseEntity<GetReservationByUserResponse> getReservationById(@PathVariable Long id){
+        return ResponseEntity.ok(reservationService.getReservationById(id));
+    }
+    @GetMapping("/user/{userId}")
     public ResponseEntity<List<GetReservationByUserResponse>> getReservationsByUserId(@PathVariable Long userId) {
         return ResponseEntity.ok(reservationService.getReservationsByUserId(userId));
     }
@@ -52,7 +56,7 @@ public class ReservationController {
         System.out.println("Payload: " + payload);
         System.out.println("mi orden: " + id);
 
-        String topic = (String) payload.get("topic");  // Puede ser "merchant_order" o "payment"
+        String topic = (String) payload.get("topic");
         try {
             if ("merchant_order".equals(topic)) {
                 // Obtener Merchant Order desde Mercado Pago usando el SDK

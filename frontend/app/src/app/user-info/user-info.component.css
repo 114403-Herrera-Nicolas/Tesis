@@ -13,3 +13,14 @@
     user-select: none;
     transition: background-color 0.3s, box-shadow 0.3s;
   }
+
+  .bi-pencil-square{
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s, box-shadow 0.3s;
+
+  }
+
+  .bi-pencil-square:hover{
+    color: #ffa723;
+  }

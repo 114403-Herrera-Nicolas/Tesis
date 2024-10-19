@@ -2,6 +2,7 @@ package app.tesis.services.impl;
 
 import app.tesis.entities.Reservation;
 import com.mercadopago.MercadoPagoConfig;
+import com.mercadopago.client.preference.PreferenceBackUrlsRequest;
 import com.mercadopago.client.preference.PreferenceClient;
 import com.mercadopago.client.preference.PreferenceItemRequest;
 import com.mercadopago.client.preference.PreferenceRequest;
@@ -35,11 +36,19 @@ public class MpService {
         //id de mi orden
         String MiOrdenId= String.valueOf(reservation.getId());
         // Configura la URL de notificación
-        String notificationUrl = "https://3b6d-190-96-112-182.ngrok-free.app/api/v1/reservation/webhook/"+MiOrdenId;
+        String notificationUrl = "https://d4a4-190-96-112-182.ngrok-free.app/api/v1/reservation/webhook/"+MiOrdenId;
+        PreferenceBackUrlsRequest preferenceBackUrlsRequest = PreferenceBackUrlsRequest.builder()
+                .success("http://localhost:4200/success/"+reservation.getId())
+                .pending("http://localhost:4200/pending/"+reservation.getId())
+                .failure("http://localhost:4200/error/"+reservation.getId())
+                .build();
+
+
 
         PreferenceRequest preferenceRequest = PreferenceRequest.builder()
                 .items(items)
-                .notificationUrl(notificationUrl) // URL de notificación
+                .notificationUrl(notificationUrl)
+                .backUrls(preferenceBackUrlsRequest)
                 .build();
 
         try{

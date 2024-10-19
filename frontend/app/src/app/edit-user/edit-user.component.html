@@ -1,0 +1,76 @@
+<form class="bg-white  mb-3 p-3" [formGroup]="registerForm" style="max-width: 500px">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-floating mb-3">
+          <input
+            formControlName="firstname"
+            type="text"
+            class="form-control"
+            id="floatingInput"
+            placeholder="name@example.com"
+          />
+          <label for="floatingInput">Nombre</label>
+          <div
+            *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)"
+            class="text-danger"
+          >
+            <div *ngIf="firstname.errors?.['required']">
+              El nombre es requerido.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="form-floating mb-3">
+          <input
+            formControlName="lastname"
+            type="text"
+            class="form-control"
+            id="floatingInput"
+            placeholder="name@example.com"
+          />
+          <label for="floatingInput">Apellido</label>
+          <div
+            *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)"
+            class="text-danger"
+          >
+            <div *ngIf="lastname.errors?.['required']">
+              El Apellido es requerido.
+            </div>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+    
+   
+    <div class="form-floating mb-3">
+      <input
+        formControlName="username"
+        type="email"
+        class="form-control"
+        id="floatingInput"
+        placeholder="name@example.com"
+      />
+      <label for="floatingInput">Email</label>
+      <div
+        *ngIf="email.invalid && (email.dirty || email.touched)"
+        class="text-danger"
+      >
+        <div *ngIf="email.errors?.['required']">El Email es requerido.</div>
+        <div *ngIf="email.errors?.['email']">
+          El Email debe tener un formato válido.
+        </div>
+      </div>
+    </div>
+    <button
+      [disabled]="!registerForm.valid"
+      type="submit"
+      (click)="editUser()"
+      class="btn btn-primary mt-2"
+      style="width: 100%"
+    >
+      Guardar
+    </button>
+  
+  </form>

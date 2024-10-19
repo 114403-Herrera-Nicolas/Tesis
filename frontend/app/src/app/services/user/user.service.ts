@@ -1,15 +1,17 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, retry, throwError } from 'rxjs';
 import { User } from '../auth/user';
 import { environment } from '../../../environments/environment';
+import { LoginService } from '../auth/login.service';
+import { UserInfo } from '../../models/UserInfo';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private loginService:LoginService) { }
 
   getUser(id:number):Observable<User>{
     return this.http.get<User>(environment.urlApi+"user/"+id).pipe(
@@ -19,9 +21,22 @@ export class UserService {
 
   updateUser(userRequest:User):Observable<any>
   {
-    return this.http.put(environment.urlApi+"user", userRequest).pipe(
-      catchError(this.handleError)
-    )
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.loginService.userToken}`,
+    });
+    let user: UserInfo;
+    this.loginService.user.subscribe(data=>{
+      user=data;
+    }); 
+     let response= this.http.put(environment.urlApi+"user", userRequest, {headers});
+      response.subscribe(data=>{
+        user.firstName=userRequest.firstname;
+        user.lastName=userRequest.lastname;
+        user.userName=userRequest.username;
+        this.loginService.currentUser.next(user);
+        sessionStorage.setItem('user', JSON.stringify(user));
+      });
+     return response;
   }
 
   private handleError(error:HttpErrorResponse){

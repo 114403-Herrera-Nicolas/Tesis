@@ -23,4 +23,6 @@ public interface ReservationService {
     void updateStatusFromPayment(Long id,Payment payment);
 
     void updateStatusFromOrder(List<MerchantOrderPayment> payments,Long id);
+
+    GetReservationByUserResponse getReservationById(Long id);
 }

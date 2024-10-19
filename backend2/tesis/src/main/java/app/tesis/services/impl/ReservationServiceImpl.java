@@ -120,19 +120,39 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public void updateStatusFromOrder(List<MerchantOrderPayment> payments,Long id) {
-        payments.forEach(payment->{
-            Reservation reservation = reservationRepository.findById(id).orElseThrow(() -> new RuntimeException("Reservación no encontrada"));
-            if (payment.getStatus().equals("approved")){
-                reservation.setStatus(ReservationState.COMPLETED);
+    public void updateStatusFromOrder(List<MerchantOrderPayment> payments, Long id) {
+        payments.forEach(payment -> {
+            Reservation reservation = reservationRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Reservación no encontrada"));
+
+            switch (payment.getStatus()) {
+                case "approved":
+                    reservation.setStatus(ReservationState.COMPLETED);
+                    break;
+                case "pending":
+                case "in_process":
+                    reservation.setStatus(ReservationState.PENDING);
+                    break;
+                case "cancelled":
+                case "refunded":
+                case "rejected":
+                    reservation.setStatus(ReservationState.CANCELLED);
+                    break;
+                default:
+                    throw new RuntimeException("Estado de pago no reconocido: " + payment.getStatus());
             }
-            else if (payment.getStatus().equals("cancelled")){
-                reservation.setStatus(ReservationState.CANCELLED);
-            } else if (payment.getStatus().equals("refunded")) {
-                reservation.setStatus(ReservationState.REFUNDED);
-            }
+
             reservationRepository.save(reservation);
         });
+    }
+
+    @Override
+    public GetReservationByUserResponse getReservationById(Long id) {
+        Reservation reservation = reservationRepository.getReferenceById(id);
+        GetReservationByUserResponse response= modelMapper.map(reservation, GetReservationByUserResponse.class);
+        response.setCabinName(reservation.getCabin().getName());
+        response.setCabinId(response.getCabinId());
+        return response;
     }
 
 

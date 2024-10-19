@@ -65,6 +65,10 @@ btnMpExist: boolean=false;
             preferenceId: this.preferenceId,
           },
           customization: {
+            backUrls: {
+              'error': '<http://localhost:4200/cabins>',
+              'return': '<http://localhost:4200/profile>'
+           },
             texts: {
               valueProp: "smart_option",
             },

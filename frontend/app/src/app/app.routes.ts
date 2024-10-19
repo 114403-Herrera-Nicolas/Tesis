@@ -9,6 +9,9 @@ import { CabinDetailComponent } from './cabin-detail/cabin-detail.component';
 import { CreateReservationComponent } from './create-reservation/create-reservation.component';
 import { UpdateCabinComponent } from './update-cabin/update-cabin.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
+import { PaymentErrorComponent } from './pages/payment-error/payment-error.component';
+import { PaymentPendingComponent } from './pages/payment-pending/payment-pending.component';
 
 export const routes: Routes = [
     {path:"login", component:LoginComponent},
@@ -21,5 +24,7 @@ export const routes: Routes = [
     {path:"cabin-update/:id",component:UpdateCabinComponent},
     {path:"reservation",component:CreateReservationComponent},
     {path:"profile",component:ProfileComponent},
-
+    {path:"success/:id",component:PaymentSuccessComponent},
+    {path:"error/:id",component:PaymentErrorComponent},
+    {path:"pending/:id",component:PaymentPendingComponent},
 ];

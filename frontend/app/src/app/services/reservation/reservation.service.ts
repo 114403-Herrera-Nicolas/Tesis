@@ -37,6 +37,13 @@ export class ReservationService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.loginService.userToken}`, // Incluir el token en las cabeceras
     });
-    return this.http.get<ReservationDto[]>('http://localhost:8080/api/v1/reservation/'+userId,{ headers });
+    return this.http.get<ReservationDto[]>('http://localhost:8080/api/v1/reservation/user/'+userId,{ headers });
+  }
+
+  public getReservationByid(id:string): Observable<ReservationDto> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.loginService.userToken}`, // Incluir el token en las cabeceras
+    });
+    return this.http.get<ReservationDto>('http://localhost:8080/api/v1/reservation/'+id,{ headers });
   }
 }

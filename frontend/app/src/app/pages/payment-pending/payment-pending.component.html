@@ -1,0 +1,22 @@
+<div class="pending-page text-center text-white my-5 shadow">
+    <div  class="bg-warning p-3 rounded-top">
+        <i class="bi bi-clock" style="font-size: 3rem; color: rgb(255, 255, 255);"></i>
+        <h1>Pago Pendiente</h1>
+        <p class="lead">Tu pago está siendo procesado. Por favor, espera la confirmación.</p>
+    </div>
+    
+    <div class="p-3 text-muted">
+        <h3>Detalles de la Reservación</h3>
+        <p><strong>Código de Reservación:</strong> {{ reservation.id }}</p>
+        <p><strong>Total a Pagar:</strong> {{ reservation.totalNights * reservation.priceForNight | currency }}</p>
+    </div>
+
+    <div class="p-3 text-muted">
+        <p>Recibirás un correo con la confirmación una vez que el pago haya sido completado.</p>
+    </div>
+
+    <div class="actions pb-2">
+        <button class="btn btn-primary" routerLink="/cabins">Volver a la página principal</button>
+        <button class="btn btn-secondary" routerLink="/profile">Revisar mis reservaciones</button>
+    </div>
+</div>

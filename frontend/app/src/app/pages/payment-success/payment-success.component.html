@@ -1,0 +1,25 @@
+<div class="success-page text-center text-white  my-5 shadow">
+    <div class="bg-success p-3 rounded-top">
+        <i class="bi bi-check-circle" style="font-size: 3rem;"></i>
+        <h1>¡Pago completado con éxito!</h1>
+        <p class="lead">Gracias por tu compra, tu reservación ha sido confirmada.</p>
+    </div>
+    
+    
+    
+    <div class="reservation-details text-muted p-3">
+        <h3>Detalles de la Reservación</h3>
+        <p><strong>Código de Reservación:</strong> {{reservation.id }}</p>
+        <p><strong>Nombre de la Cabaña:</strong> {{ reservation.cabinName }}</p>
+        <p><strong>Check-in:</strong> {{ reservation.startDate }}</p>
+        <p><strong>Check-out:</strong> {{ reservation.endDate }}</p>
+        <p><strong>Total Pagado:</strong> {{ reservation.totalNights * reservation.priceForNight | currency }}</p>
+    </div>
+    <p class="text-muted">Recibirás un correo con los detalles de tu reservación a tu correo electrónico.</p>
+    <div class="actions pb-2">
+        <button class="btn btn-primary" routerLink="/profile">Ver reservación en tu perfil</button>
+        <button class="btn btn-secondary" routerLink="/cabins">Volver a la página principal</button>
+    </div>
+    
+    
+</div>
