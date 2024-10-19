@@ -14,6 +14,9 @@ import { UserInfo } from '../models/UserInfo';
   styleUrl: './edit-user.component.css'
 })
 export class EditUserComponent{
+cancel() {
+  this.editEvent.emit(true);
+}
   @Input() user: UserInfo;
   @Output() editEvent = new EventEmitter<boolean>(); 
 editUser() {

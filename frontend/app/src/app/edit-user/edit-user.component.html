@@ -64,6 +64,15 @@
       </div>
     </div>
     <button
+     
+      type="submit"
+      (click)="cancel()"
+      class="btn btn-secondary mt-2"
+      style="width: 100%"
+    >
+      Cancelar
+    </button>
+    <button
       [disabled]="!registerForm.valid"
       type="submit"
       (click)="editUser()"
@@ -72,5 +81,6 @@
     >
       Guardar
     </button>
+
   
   </form>
