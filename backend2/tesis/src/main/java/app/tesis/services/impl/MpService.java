@@ -9,6 +9,7 @@ import com.mercadopago.client.preference.PreferenceRequest;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.preference.Preference;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,8 @@ import java.util.List;
 
 @Service
 public class MpService {
+    @Value("${ip}")
+    String ip;
     public String createPreference(Reservation reservation) throws MPException, MPApiException {
         MercadoPagoConfig.setAccessToken("APP_USR-7848850847971168-082612-f385dde860029e2422c49038f24b3867-1963279530");
 
@@ -36,7 +39,9 @@ public class MpService {
         //id de mi orden
         String MiOrdenId= String.valueOf(reservation.getId());
         // Configura la URL de notificación
-        String notificationUrl = "https://d4a4-190-96-112-182.ngrok-free.app/api/v1/reservation/webhook/"+MiOrdenId;
+
+
+        String notificationUrl = ip+"/api/v1/reservation/webhook/"+MiOrdenId;
         PreferenceBackUrlsRequest preferenceBackUrlsRequest = PreferenceBackUrlsRequest.builder()
                 .success("http://localhost:4200/success/"+reservation.getId())
                 .pending("http://localhost:4200/pending/"+reservation.getId())

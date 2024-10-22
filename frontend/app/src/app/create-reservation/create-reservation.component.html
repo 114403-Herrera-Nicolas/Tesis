@@ -1,10 +1,10 @@
 <div class="container bg-white p-3 mb-5">
-  <div class="row">
+  <div class="row" style="overflow-y: scroll;">
     <div class="col ">
       <div class="d-flex flex-column align-items-center justify-content-center">
         <h3 class="mb-3">¿Qué días quieres reservar?</h3>
-        <app-datepicker-range
-          [displayMonths]="2"
+        <app-datepicker-range 
+          [displayMonths]="displayMonths"
           [disabledDays]="transformedReservedDates"
           [disabledDatePicker]="false"
           (fromDateChange)="onFromDateChange($event)"

@@ -1,7 +1,15 @@
 @media (max-width: 1000px) {
     .features-list{
         max-height: 100px!important;
-        overflow-y: scroll;
+  
+        display: flex;
+        flex-direction: row;
+        width: max-content;
+        
     }
 
+    .features-list div{
+        margin-left: 10px;
+        
+    }
 }

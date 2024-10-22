@@ -52,13 +52,13 @@ export class DatepickerRangeComponent {
       if (this.isDisabled(dateStruct)) {
         return true;
       }
-
-      from = new NgbDate(from.year, from.month, from.day + 1);
+  
+      from = this.calendar.getNext(from, 'd', 1);
     }
-
+  
     return false;
   }
-
+  
   onDateSelection(date: NgbDateStruct) {
     if (this.disabledDatePicker) {
       return;

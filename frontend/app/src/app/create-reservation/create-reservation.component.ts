@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Cabin } from '../models/Cabin';
 import { CabinService } from '../services/cabin/Cabin.service';
 import { DatepickerRangeComponent } from "../datepicker-range/datepicker-range.component";
@@ -18,6 +18,22 @@ declare var bricksBuilder: any;
   styleUrl: './create-reservation.component.css'
 })
 export class CreateReservationComponent {
+  displayMonths: number = 2; // Valor por defecto
+
+ 
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any): void {
+    this.adjustDisplayMonths(event.target.innerWidth);
+  }
+
+  adjustDisplayMonths(width: number): void {
+    if (width < 768) { 
+      this.displayMonths = 1;
+    } else {
+      this.displayMonths = 2;
+    }
+  }
   userLoginOn: boolean;
 
   request:ReservationRequest={
@@ -36,6 +52,7 @@ export class CreateReservationComponent {
 showLoader: boolean=false;
 btnMpExist: boolean=false;
   ngOnInit(){
+    this.adjustDisplayMonths(window.innerWidth);
     this.loginService.userLoginOn.subscribe(loged=>{
       if (!loged) {
         this.router.navigate(['/login']);
