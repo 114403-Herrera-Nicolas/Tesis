@@ -1,5 +1,6 @@
 package app.tesis.repositories;
 
+import app.tesis.dtos.cabin.CabinReservationReportDTO;
 import app.tesis.entities.Cabin;
 import app.tesis.entities.Feature;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -33,6 +34,13 @@ public interface CabinRepository extends JpaRepository<Cabin,Long> {
 
 
 
+
+
+    @Query("SELECT c.name, COUNT(r), SUM(r.priceForNight * r.totalNights) " +
+            "FROM Cabin c JOIN c.reservations r " +
+            "WHERE r.status = 'COMPLETED' " +
+            "GROUP BY c.name")
+    List<Object[]> findTotalBilledAndReservationCountByCabin();
 
 
 

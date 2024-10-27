@@ -1,10 +1,7 @@
 package app.tesis.services;
 
-import app.tesis.dtos.cabin.GetCabinDto;
-import app.tesis.dtos.cabin.UpdateCabinRequest;
+import app.tesis.dtos.cabin.*;
 import org.springframework.stereotype.Service;
-import app.tesis.dtos.cabin.CreateCabinRequest;
-import app.tesis.dtos.cabin.CreateCabinResponse;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -20,6 +17,7 @@ public interface CabinService {
     List<GetCabinDto> searchCabins(String name, String location, BigDecimal minPrice, BigDecimal maxPrice, Integer capacity, Set<Long> featureIds);
 
     GetCabinDto getCabinById(Long id);
+    List<CabinReservationReportDTO> getReservationReport();
 
     CreateCabinResponse updateCabin(UpdateCabinRequest cabinRequest, String token) throws IOException;
 }

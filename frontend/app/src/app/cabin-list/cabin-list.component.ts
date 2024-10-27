@@ -6,13 +6,14 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { TruncatePipe } from '../truncate.pipe';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReservationsForCabinComponent } from "../pages/reporting/ReservationsForCabin/ReservationsForCabin.component";
 
 
 declare const bootstrap: any;
 @Component({
   selector: 'app-cabin-list',
   standalone: true,
-  imports: [CurrencyPipe, CommonModule,RouterLink,TruncatePipe,NgbPaginationModule],
+  imports: [CurrencyPipe, CommonModule, RouterLink, TruncatePipe, NgbPaginationModule, ReservationsForCabinComponent],
   templateUrl: './cabin-list.component.html',
   styleUrl: './cabin-list.component.css',
 })

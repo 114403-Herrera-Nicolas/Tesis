@@ -15,6 +15,7 @@ import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.merchantorder.MerchantOrderPayment;
 import com.mercadopago.resources.payment.Payment;
+import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,8 @@ public class ReservationServiceImpl implements ReservationService {
     private MpService mpService;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private EmailService emailService;
     @Override
     @Transactional
     public ReservationResponse createReservation(ReservationRequest request) throws MPException, MPApiException {
@@ -120,7 +123,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public void updateStatusFromOrder(List<MerchantOrderPayment> payments, Long id) {
+    public void updateStatusFromOrder(List<MerchantOrderPayment> payments, Long id)  {
         payments.forEach(payment -> {
             Reservation reservation = reservationRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Reservación no encontrada"));
@@ -128,15 +131,30 @@ public class ReservationServiceImpl implements ReservationService {
             switch (payment.getStatus()) {
                 case "approved":
                     reservation.setStatus(ReservationState.COMPLETED);
+                    try {
+                        emailService.sendReservationConfirmationEmail(reservation);
+                    } catch (MessagingException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case "pending":
                 case "in_process":
                     reservation.setStatus(ReservationState.PENDING);
+                    try {
+                        emailService.sendReservationPendingEmail(reservation);
+                    } catch (MessagingException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case "cancelled":
                 case "refunded":
                 case "rejected":
                     reservation.setStatus(ReservationState.CANCELLED);
+                    try {
+                        emailService.sendReservationCancelledEmail(reservation);
+                    } catch (MessagingException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 default:
                     throw new RuntimeException("Estado de pago no reconocido: " + payment.getStatus());

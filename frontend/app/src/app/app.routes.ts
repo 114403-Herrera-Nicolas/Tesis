@@ -12,6 +12,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { PaymentErrorComponent } from './pages/payment-error/payment-error.component';
 import { PaymentPendingComponent } from './pages/payment-pending/payment-pending.component';
+import { ReportingComponent } from './pages/reporting/reporting.component';
 
 export const routes: Routes = [
     {path:"login", component:LoginComponent},
@@ -27,4 +28,5 @@ export const routes: Routes = [
     {path:"success/:id",component:PaymentSuccessComponent},
     {path:"error/:id",component:PaymentErrorComponent},
     {path:"pending/:id",component:PaymentPendingComponent},
+    {path:"reports",component:ReportingComponent},
 ];

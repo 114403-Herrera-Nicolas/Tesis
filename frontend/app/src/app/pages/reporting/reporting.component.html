@@ -1,0 +1,21 @@
+<div class="container-fluid mt-5 mb-5 bg-white">
+  <div class="row pt-3">
+    <div class="col d-flex justify-content-end">
+      <button (click)="downloadPDF()" class="btn btn-primary">
+        <i class="bi bi-download"></i> Descargar en PDF
+      </button>
+    </div>
+  </div>
+  
+  <div id="reportContent" class="row">
+    <h1 class="text-center">Reportes</h1>
+    <div
+      class="col-12 p-5 container d-flex justify-content-center flex-column align-items-center"
+      style="overflow-x: scroll;"
+    >
+      
+      <app-ReservationsForCabin></app-ReservationsForCabin>
+      <app-total-billed-for-cabin></app-total-billed-for-cabin>
+    </div>
+  </div>
+</div>

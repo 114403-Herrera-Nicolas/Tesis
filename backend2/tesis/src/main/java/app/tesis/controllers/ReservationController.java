@@ -5,6 +5,7 @@ import app.tesis.dtos.reservation.ReservationRequest;
 import app.tesis.dtos.reservation.ReservationResponse;
 import app.tesis.entities.ReservationState;
 import app.tesis.services.ReservationService;
+import app.tesis.services.impl.EmailService;
 import com.mercadopago.MercadoPagoConfig;
 import com.mercadopago.client.merchantorder.MerchantOrderClient;
 import com.mercadopago.client.payment.PaymentClient;
@@ -26,9 +27,13 @@ public class ReservationController {
     private final PaymentClient paymentClient;
     private final MerchantOrderClient merchantOrderClient;
 
+   @Autowired
+   private EmailService emailService;
+
     public ReservationController(){
         merchantOrderClient=new MerchantOrderClient();
         paymentClient=new PaymentClient();
+
         MercadoPagoConfig.setAccessToken("APP_USR-7848850847971168-082612-f385dde860029e2422c49038f24b3867-1963279530");
     }
     @Autowired
@@ -86,5 +91,9 @@ public class ReservationController {
     }
 
 
+    @GetMapping("/testEmail")
+    public void testEmail() {
+        emailService.sendEmail("dreamduck420@gmail.com","que onda","Ssx");
+    }
 
 }

@@ -45,6 +45,8 @@ public class Cabin {
 
     @OneToMany(mappedBy = "cabin", cascade = CascadeType.ALL)
     private List<Reservation> reservations;
+    @OneToMany(mappedBy = "cabin", cascade = CascadeType.ALL)
+    private List<Review> reviews;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

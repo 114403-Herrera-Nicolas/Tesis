@@ -3,8 +3,7 @@ package app.tesis.services.impl;
 import app.tesis.Jwt.JwtService;
 import app.tesis.User.Role;
 import app.tesis.User.UserService;
-import app.tesis.dtos.cabin.GetCabinDto;
-import app.tesis.dtos.cabin.UpdateCabinRequest;
+import app.tesis.dtos.cabin.*;
 import app.tesis.dtos.feature.FeatureDto;
 import app.tesis.entities.Feature;
 import app.tesis.entities.Reservation;
@@ -19,8 +18,6 @@ import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import app.tesis.dtos.cabin.CreateCabinRequest;
-import app.tesis.dtos.cabin.CreateCabinResponse;
 import app.tesis.entities.Cabin;
 import app.tesis.services.CabinService;
 
@@ -208,6 +205,22 @@ public class CabinServiceImpl implements CabinService {
         cabinRepository.save(cabin);
 
         return new CreateCabinResponse("Se actualizó la cabaña con id: " + cabin.getId());
+    }
+
+
+    public List<CabinReservationReportDTO> getReservationReport() {
+        List<Object[]> results = cabinRepository.findTotalBilledAndReservationCountByCabin();
+        List<CabinReservationReportDTO> report = new ArrayList<>();
+
+        for (Object[] result : results) {
+            String cabinName = (String) result[0];
+            long totalReservations = (long) result[1];
+            BigDecimal totalBilled = (BigDecimal) result[2];
+            List<CabinReservationReportDTO.ReservationDetail> reservationDetails = new ArrayList<>();
+
+            report.add(new CabinReservationReportDTO(cabinName, totalReservations, totalBilled,reservationDetails));
+        }
+        return report;
     }
 
 }

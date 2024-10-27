@@ -1,14 +1,11 @@
 package app.tesis.controllers;
 
-import app.tesis.dtos.cabin.GetCabinDto;
-import app.tesis.dtos.cabin.UpdateCabinRequest;
+import app.tesis.dtos.cabin.*;
 import app.tesis.services.PhotoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import app.tesis.dtos.cabin.CreateCabinRequest;
-import app.tesis.dtos.cabin.CreateCabinResponse;
 import app.tesis.services.CabinService;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -128,5 +125,10 @@ public class CabinController {
     @GetMapping("/{id}")
     public ResponseEntity<GetCabinDto> getCabinById(@PathVariable Long id) {
         return ResponseEntity.ok(cabinService.getCabinById(id));
+    }
+    @GetMapping("/cabin-reservations")
+    public ResponseEntity<List<CabinReservationReportDTO>> getCabinReservationReport() {
+        List<CabinReservationReportDTO> report = cabinService.getReservationReport();
+        return ResponseEntity.ok(report);
     }
 }

@@ -4,6 +4,7 @@ import { Cabin } from '../../models/Cabin';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { LoginService } from '../auth/login.service';
+import { CabinReport } from '../../models/CabinReport';
 
 @Injectable({
   providedIn: 'root'
@@ -115,6 +116,13 @@ export class CabinService {
     const url = `${environment.urlApi}cabin?name=${name}&description=${description}&location=${location}&pricePerNight=${pricePerNight}&capacity=${capacity}&availability=${availability}&${featureIds}`;
 
     return this.http.post(url, formData, { headers }).toPromise();
+  }
+
+
+
+  getCabinsReports():Observable<CabinReport[]> {
+
+    return this.http.get<CabinReport[]>(`${environment.urlApi}cabin/cabin-reservations`);
   }
 
   // Manejo de errores

@@ -4,7 +4,7 @@ import { Cabin } from '../models/Cabin';
 import { environment } from '../../environments/environment';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ModalDismissReasons, NgbDatepickerModule, NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { JsonPipe } from '@angular/common';
+import { CurrencyPipe, JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DatepickerRangeComponent } from '../datepicker-range/datepicker-range.component';
 import { LoginService } from '../services/auth/login.service';
@@ -13,7 +13,7 @@ import { RegisterUserComponent } from "../auth/register-user/register-user.compo
 @Component({
   selector: 'app-cabin-detail',
   standalone: true,
-  imports: [NgbDatepickerModule, NgbModule, JsonPipe, FormsModule, DatepickerRangeComponent, RouterModule, LoginComponent, RegisterUserComponent],
+  imports: [NgbDatepickerModule, NgbModule, JsonPipe, FormsModule, DatepickerRangeComponent, RouterModule, LoginComponent, RegisterUserComponent,CurrencyPipe],
   templateUrl: './cabin-detail.component.html',
   styleUrl: './cabin-detail.component.css'
 })
