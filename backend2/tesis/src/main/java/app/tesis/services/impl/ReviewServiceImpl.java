@@ -47,7 +47,7 @@ public class ReviewServiceImpl implements ReviewService {
                     entity.getRating(),
                     entity.getComment(),
                     entity.getDate(),
-                    entity.getUser().getUsername(),
+                    entity.getUser().getFirstname() + " "+entity.getUser().getLastname(),
                     entity.getCabin().getId()
             );
             responseList.add(response);

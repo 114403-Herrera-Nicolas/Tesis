@@ -39,6 +39,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/v1/feature").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/api/v1/reviews/**").permitAll()
                         .requestMatchers("/api/v1/reservation/webhook/**").permitAll()
                         //.requestMatchers("/api/v1/cabin").hasRole(Role.ADMIN.name())
                         .anyRequest().authenticated()

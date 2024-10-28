@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1/reviews")
+@CrossOrigin(origins = "*")
 public class ReviewController {
     @Autowired
     private ReviewService reviewService;
@@ -18,7 +20,7 @@ public class ReviewController {
     public ResponseEntity<ReviewResponse> createReview(@RequestBody ReviewRequest review) {
         return ResponseEntity.ok(reviewService.createReview(review));
     }
-    @GetMapping("/{cabinId}")
+    @GetMapping("/cabin/{cabinId}")
     public ResponseEntity<List<ReviewResponse>> getAllReviewsByCabin(@PathVariable Long cabinId) {
         return ResponseEntity.ok(reviewService.getAllReviewsByCabin(cabinId));
     }
