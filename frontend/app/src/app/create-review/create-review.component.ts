@@ -23,6 +23,7 @@ reviewRequest:ReviewRequest={
 }
   @Input() cabinId:number;
   @Output() ratingSubmitted = new EventEmitter<boolean>();
+  ratingSubmit:boolean=false;
   user: UserInfo;
   rating:number=0;
   comment:string="";
@@ -48,6 +49,7 @@ reviewRequest:ReviewRequest={
     this.reviewService.createReview(this.reviewRequest).subscribe(data => {
       this.comment="";
       this.rating=0;
+      this.ratingSubmit=true;
       this.ratingSubmitted.emit(true);
     });
   }

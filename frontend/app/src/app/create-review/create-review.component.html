@@ -3,9 +3,6 @@
 
 <textarea name="" rows="3" required="true" maxlength="255" #commentInput="ngModel" class="form-control" [(ngModel)]="comment" placeholder="Escribe tu comentario aquí" ></textarea>
 
-<div *ngIf="commentInput.invalid && commentInput.touched" class="text-danger">
-  El comentario es requerido.
-</div>
 
 <div class="d-flex flex-row">
   <div class="rating">
@@ -22,7 +19,6 @@
   </div>
 </div>
 
-<!-- Botón de compartir -->
 <button 
   class="btn btn-primary" 
   (click)="submitReview()" 
@@ -30,3 +26,14 @@
 >
   Compartir
 </button>
+
+
+@if (ratingSubmit) {
+
+  <div class="alert alert-success alert-dismissible alert-fixed-top" role="alert">
+    <i class="bi bi-check-circle-fill me-2"></i>
+    Tu reseña ha sido enviada
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+}

@@ -16,6 +16,9 @@
 .gray-star {
     color: gray;
 }
+.gray-half-star{
+    color: #ffa723;
+}
 body{
     background-color: #ebebeb;
 }

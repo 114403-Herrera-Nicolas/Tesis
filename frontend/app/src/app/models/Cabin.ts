@@ -10,7 +10,9 @@ export interface Cabin {
     capacity: number,
     photos: string[],
     features:Feature[] ,
-    reservedDates: number[][]; 
+    reservedDates: number[][],
+    rating: number,
+    commentsCount:number
 }
 
 

@@ -23,6 +23,7 @@ import app.tesis.services.CabinService;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -115,6 +116,23 @@ public class CabinServiceImpl implements CabinService {
             Set<FeatureDto> features= getFeaturesDtoByCabinId(c.getId());
             GetCabinDto dto = modelMapper.map(c, GetCabinDto.class);
             dto.setFeatures(features);
+            dto.setCommentsCount(0);
+            dto.setRating(BigDecimal.valueOf(0));
+            if (c.getReviews() != null && !c.getReviews().isEmpty()) {
+                BigDecimal rating = BigDecimal.valueOf(0);
+                int countComments = 0;
+
+                for (var review : c.getReviews()) {
+                    rating = rating.add(BigDecimal.valueOf(review.getRating()));
+                    countComments++;
+                }
+
+                rating = rating.divide(BigDecimal.valueOf(countComments), 2, RoundingMode.HALF_UP);
+                dto.setRating(rating);
+                dto.setCommentsCount(countComments);
+            }
+
+
             getCabinDtoList.add(dto);
         }
         return getCabinDtoList;

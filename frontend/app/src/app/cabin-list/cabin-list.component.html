@@ -42,17 +42,18 @@
             </div>
             <div class="col-auto">
               <div class="text-center d-flex flex-row">
-                <i class="bi bi-star-fill yellow-star"></i>
-                <i class="bi bi-star-fill yellow-star"></i>
-                <i class="bi bi-star-fill yellow-star"></i>
-                <i class="bi bi-star-fill yellow-star"></i>
-                <i class="bi bi-star-fill gray-star"></i>
-                <p class="text-muted mb-0 ms-2">4.5</p>
+                <div [innerHTML]="cabin.rating| startRatingProm"></div>
+                <p class="text-muted mb-0 ms-2">{{ cabin.rating }}</p>
               </div>
               <p class="card-text mb-1">
-                <a class="text-muted text-decoration-none" href="#"
-                  >5 comentarios</a
-                >
+                @if (cabin.commentsCount==1) {
+                  <a class="text-muted text-decoration-none" routerLink="/cabin/{{cabin.id}}"
+                  >{{ cabin.commentsCount }} comentario</a
+                >}@else {
+                  <a class="text-muted text-decoration-none" routerLink="/cabin/{{cabin.id}}"
+                    >{{ cabin.commentsCount }} comentarios</a
+                  >
+                }
               </p>
               <button class="btn btn-success mt-auto"  routerLink="/cabin/{{cabin.id}}"><i class="bi bi-calendar-check"></i> Reservar</button>
             </div>

@@ -25,6 +25,9 @@ public class GetCabinDto {
     private int capacity;
     private List<String> photos;
     private Set<FeatureDto> features;
-    private int reviewsCount;
+
     private List<LocalDate> reservedDates;
+    private BigDecimal rating;
+    private Integer CommentsCount;
+
 }

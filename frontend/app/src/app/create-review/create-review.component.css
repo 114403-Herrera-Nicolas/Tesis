@@ -35,3 +35,15 @@
   
   
   
+  .alert-fixed-top {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 500px;
+    z-index: 1050;
+    text-align: center;
+    margin-top: 25px;
+  }
+  
