@@ -90,3 +90,15 @@
     color: #ffffff; 
   }
   
+
+.modal-content{
+  background-color: transparent !important;
+}
+
+.labelForComment{
+  cursor: pointer;
+  text-decoration: underline;
+}
+.labelForComment:hover{
+  color: #ffa723 !important;
+}

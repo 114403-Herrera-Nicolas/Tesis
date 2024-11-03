@@ -1,21 +1,57 @@
-<div class="container-fluid mt-5 mb-5 bg-white">
-  <div class="row pt-3">
-    <div class="col d-flex justify-content-end">
-      <button (click)="downloadPDF()" class="btn btn-primary">
-        <i class="bi bi-download"></i> Descargar en PDF
-      </button>
-    </div>
+<div class="container-fluid mb-5">
+  <div class="row pt-2 mb-3">
+    @if (currentUrl!='/reports/cabin/create') {
+      <div class="col d-flex justify-content-end">
+        <div class="button" (click)="downloadPDF()">
+          <div class="button-wrapper">
+            <div class="text">Descargar</div>
+            <span class="icon">
+              <i class="bi bi-download"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    }@else {
+      <div style="height: 35px;"></div>
+    }
   </div>
-  
-  <div id="reportContent" class="row">
-    <h1 class="text-center">Reportes</h1>
-    <div
-      class="col-12 p-5 container d-flex justify-content-center flex-column align-items-center"
-      style="overflow-x: scroll;"
-    >
-      
-      <app-ReservationsForCabin></app-ReservationsForCabin>
-      <app-total-billed-for-cabin></app-total-billed-for-cabin>
+
+
+
+  <div class="row">
+    <div class="col-md-3 mb-3 border-end">
+      <div class="list-group bg-white list-group-flush">
+        <a class="list-group-item list-group-item-action bg-primary text-white ">
+           <strong>Acciones</strong>
+        </a>
+        <a class="list-group-item list-group-item-action item-router" [routerLink]="['/reports/cabin/create']" routerLinkActive="active">
+          <i class="bi bi-plus-circle"></i> Crear Cabaña
+        </a>
+        <a class="list-group-item list-group-item-action bg-primary text-white ">
+          <strong>Reportes</strong>
+       </a>
+        <a class="list-group-item list-group-item-action item-router" [routerLink]="['/reports/cabin']" routerLinkActive="active">
+          <i class="bi bi-house"></i> Por Cabaña
+        </a>
+        <a class="list-group-item list-group-item-action item-router" [routerLink]="['/reports/user']" routerLinkActive="active">
+          <i class="bi bi-person"></i> Por Usuario
+        </a>
+        
+      </div>
     </div>
-  </div>
+    
+    
+    <div class="col-md-9">
+      <div class="bg-white">
+        <div
+          class="d-flex justify-content-center flex-column align-items-center"
+          id="reportContent"
+          style="overflow-x: auto; width: 100%;"
+        >
+        <router-outlet></router-outlet>
+          
+        </div>
+      </div>
+    </div>
+  </div>  
 </div>

@@ -13,12 +13,13 @@ import { RegisterUserComponent } from "../auth/register-user/register-user.compo
 import { CreateReviewComponent } from "../create-review/create-review.component";
 import { ReviewResponse } from '../models/ReviewResponse';
 import { ReviewService } from '../services/reviews/review.service';
-import { StarRatingPipe } from "../star-rating.pipe";
-import { RelativeTimePipe } from "../relative-time.pipe";
+import { StarRatingPipe } from "../pipes/star-rating.pipe";
+import { RelativeTimePipe } from "../pipes/relative-time.pipe";
+import { StartRatingPromPipe } from "../pipes/start-rating-prom.pipe";
 @Component({
   selector: 'app-cabin-detail',
   standalone: true,
-  imports: [CommonModule, NgbDatepickerModule, NgbModule, JsonPipe, FormsModule, DatepickerRangeComponent, RouterModule, LoginComponent, RegisterUserComponent, CurrencyPipe, CreateReviewComponent, StarRatingPipe, RelativeTimePipe],
+  imports: [CommonModule, NgbDatepickerModule, NgbModule, JsonPipe, FormsModule, DatepickerRangeComponent, RouterModule, LoginComponent, RegisterUserComponent, CurrencyPipe, CreateReviewComponent, StarRatingPipe, RelativeTimePipe, StartRatingPromPipe],
   templateUrl: './cabin-detail.component.html',
   styleUrl: './cabin-detail.component.css'
 })
@@ -38,16 +39,17 @@ export class CabinDetailComponent {
 	closeResult = '';
   userLoginOn: boolean;
 
-	open(content: TemplateRef<any>) {
-		this.modalService.open(content, { size: 'lg' , ariaLabelledBy: 'modal-basic-title' }).result.then(
-			(result) => {
-				this.closeResult = `Closed with: ${result}`;
-			},
-			(reason) => {
-				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-			},
-		);
-	}
+  open(content: TemplateRef<any>) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+        (result) => {
+            this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        },
+    );
+}
+
 
 	private getDismissReason(reason: any): string {
 		switch (reason) {

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Chart, registerables, BarController, CategoryScale, LinearScale, PieController, ArcElement } from 'chart.js';
 import { CabinReport } from '../../../models/CabinReport';
 import { CabinService } from '../../../services/cabin/Cabin.service';
@@ -14,18 +14,21 @@ Chart.register(BarController, CategoryScale, LinearScale, PieController, ArcElem
   styleUrls: ['./total-billed-for-cabin.component.css']
 })
 export class TotalBilledForCabinComponent implements OnInit, OnDestroy {
-  public data: CabinReport[] = [];
+  @Input() data: CabinReport[] = [];
   public barChart: any;
   public pieChart: any;
 
   constructor(private cabinService: CabinService) {}
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data']) {
+      if (this.barChart) this.barChart.destroy();
+    if (this.pieChart) this.pieChart.destroy();
+    this.createCharts();
+    }
+  }
   ngOnInit(): void {
-    this.cabinService.getCabinsReports().subscribe(data => {
-      this.data = data;
-      console.log(this.data);
-      this.createCharts();
-    });
+    
   }
 
   ngOnDestroy(): void {
@@ -86,6 +89,15 @@ export class TotalBilledForCabinComponent implements OnInit, OnDestroy {
       },
       options: {
         responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1,
+
+            }
+          },
+        },
       },
     });
   }

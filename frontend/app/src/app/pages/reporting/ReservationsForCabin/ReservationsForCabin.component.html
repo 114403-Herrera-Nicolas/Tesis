@@ -1,6 +1,15 @@
-<div>
-  <h2>Total de Reservaciones por Cabaña</h2>
-  <div>
-    <canvas id="reservationChart"></canvas>
-  </div>
-</div>
+
+    <div class="row mt-4">
+        <div class="form-group col-lg-6">
+            <label for="startDate">Desde</label>
+            <input type="date" class="form-control" id="startDate" [(ngModel)]="startDate" (ngModelChange)="updateInfo()">
+        </div>
+        <div class="form-group col-lg-6">
+            <label for="endDate">Hasta</label>
+            <input type="date" class="form-control" id="endDate" [(ngModel)]="endDate" (ngModelChange)="updateInfo()">
+        </div>
+    </div>
+
+<h2 class="text-center mt-4">Total de Reservaciones por Cabaña</h2>
+<canvas id="reservationChart"></canvas>
+<app-total-billed-for-cabin [data]="data"></app-total-billed-for-cabin>

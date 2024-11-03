@@ -1,26 +1,28 @@
 @if (cabin) {
-  <div class="bg-white p-3 mb-3">
-  <div class="d-flex flex-row align-items-center ">
-    <h1 class="text-primary me-3">{{ cabin.name }}  </h1>
+<div class="bg-white p-3 mb-3">
+  <div class="d-flex flex-row align-items-center">
+    <h1 class="text-primary me-3">{{ cabin.name }}</h1>
     @if (role == 'ADMIN') {
-    <a [routerLink]="['/cabin-update/', cabin.id]"> <i class="bi bi-pencil-square h1"></i></a>
+    <a [routerLink]="['/reports/cabin-update/', cabin.id]">
+      <i class="bi bi-pencil-square h1"></i
+    ></a>
     }
   </div>
-  
+
   <p class="text-muted">{{ cabin.location }}</p>
   <div class="row">
     <div class="col-md-9 mb-2">
       <div id="carouselExample" class="carousel slide">
         <div class="carousel-inner">
           @for (url of cabin.photos; track $index) {
-          <div class="carousel-item active img-cabin-carrusel bg-dark ">
+          <div class="carousel-item active img-cabin-carrusel bg-dark">
             <div class="d-flex justify-content-center mt-auto">
               <img
-              [src]="baseUrl + url"
-              alt=""
-              class="d-block img img-fluid "
-              style="height: 100%; width: auto;"
-            />
+                [src]="baseUrl + url"
+                alt=""
+                class="d-block img img-fluid"
+                style="height: 100%; width: auto"
+              />
             </div>
           </div>
           }
@@ -45,100 +47,176 @@
         </button>
       </div>
     </div>
-    <div class="col-md-3 ">
+    <div class="col-md-3">
       <h4>Reseñas</h4>
       <div class="reviews-container">
         @for (review of reviews; track $index) {
-          <div class="border p-3 pe-0">
-            <div class="mb-0 d-flex align-items-center">
-              <div class="circle me-2" >
-                {{ review.username | slice:0:1 | uppercase }}
-              </div>
-              <strong>{{ review.username }}</strong>
+        <div class="border p-3 pe-0">
+          <div class="mb-0 d-flex align-items-center">
+            <div class="circle me-2">
+              {{ review.username | slice : 0 : 1 | uppercase }}
             </div>
-            <div class="d-flex align-items-center">
-              <div [innerHTML]="review.rating| starRating"></div>
-              <div class="text-muted ms-2" style="font-size: 15px;">{{ review.date | relativeTime  }}</div>
-            </div>
-            <p class=" text-small mb-0">
-              {{ review.comment }}
-            </p>
-            
-
+            <strong>{{ review.username }}</strong>
           </div>
-          }@empty {
-            <div class="border p-3">
-              <p class=" text-small mb-0">
-                Esta muy vacio por aqui 😔
-              </p>
-              <p class="text-muted text-small mb-0">Deja un comentario</p>
+          <div class="d-flex align-items-center">
+            <div [innerHTML]="review.rating | startRatingProm"></div>
+            <div class="text-muted ms-2" style="font-size: 15px">
+              {{ review.date | relativeTime }}
             </div>
-          }
+          </div>
+          <p class="text-small mb-0">
+            {{ review.comment }}
+          </p>
+        </div>
+        }@empty {
+        <div class="border p-3">
+          <p class="text-small mb-0">Esta muy vacio por aqui 😔</p>
+          <label
+            class="text-muted text-small mb-0 labelForComment"
+            for="commentInput"
+            >Deja un comentario</label
+          >
+        </div>
+        }
       </div>
     </div>
   </div>
   <div class="row mt-5">
+    <div class="col-md-9"></div>
+  </div>
+  <div class="row">
     <div class="col-md-9">
-      
-      
-    </div>
-  </div>
-      <div class="row">
-        <div class="col-md-9">
-          <div class="feature-container ">
-            @for (feature of cabin.features; track $index) {
-            
-              <span class="display-1 mb-2" style="font-size: 20px">{{ feature.name }}</span>
-              }
-            
-          </div>
-          <p class="mt-3 h5"><strong>Precio por noche: </strong> {{ cabin.pricePerNight | currency }}</p>
-          <p class="mt-2">{{ cabin.description }}</p>
-        </div>
-        <div class="col-md-3">
-          <div class="container d-flex flex-column align-items-center">
-            <app-datepicker-range [displayMonths]="1" [disabledDays]="transformedReservedDates" [disabledDatePicker]="true"></app-datepicker-range>
-            @if (userLoginOn) {
-              <button class="btn btn-success mt-2 w-100"  (click)="navigateToReservation()"><i class="bi bi-calendar-check"></i>  Reservar</button>
-  
-            }@else {
-              <button class="btn btn-primary mt-2"  (click)="open(content)"><i class="bi bi-person-circle"></i>
-                Iniciar Sesion y Reservar</button>
-  
-            }
-          </div>
-          
-          
-        </div>
-      </div>
-     <div class="row">
-      <div class="col-md-6">
-        <div class="mt-5 mt-md-0">
-          <app-create-review [cabinId]="cabin.id" (ratingSubmitted)="onRatingSubmitted()"></app-create-review>
-        </div>
-    
-      </div>
-     </div>
-  
-  
-      <ng-template #content let-modal>
-        <div class="container py-5 d-flex flex-column align-items-center">
-          @if (isLoginMode) {
-            <app-login (loginEvent)="modal.dismiss('login')" [redirect]="false"></app-login>
-            <p>No tienes cuenta? <a class="text-primary " style="cursor: pointer;" (click)="switchToRegister()"> Crear cuenta</a></p>
-          }@else {
-            <app-register-user (loginEvent)="modal.dismiss('register')" [redirect]="false"></app-register-user>
-            <p>¿Ya tienes una cuenta? <a class="text-primary " style="cursor: pointer;"  (click)="switchToLogin()">Inicia sesión aquí</a></p>
-          }
-        </div>
-      </ng-template>
-      
-  
-      
+      <div class="feature-container">
+        @for (feature of cabin.features; track $index) {
 
+        <span class="display-1 mb-2" style="font-size: 20px">{{
+          feature.name
+        }}</span>
+        }
+      </div>
+      <p class="mt-3 h5">
+        <strong>Precio por noche: </strong> {{ cabin.pricePerNight | currency }}
+      </p>
+      <p class="mt-2">{{ cabin.description }}</p>
     </div>
-}@else {
-  <div class="container">
-    <h1>upsss</h1>
+    <div class="col-md-3">
+      <div class="container d-flex flex-column align-items-center">
+        <app-datepicker-range
+          [displayMonths]="1"
+          [disabledDays]="transformedReservedDates"
+          [disabledDatePicker]="true"
+        ></app-datepicker-range>
+        @if (userLoginOn) {
+        <button
+          class="btn btn-success mt-2 w-100"
+          (click)="navigateToReservation()"
+        >
+          <i class="bi bi-calendar-check"></i> Reservar
+        </button>
+
+        }@else {
+        <button class="btn btn-primary mt-2" (click)="open(content)">
+          <i class="bi bi-person-circle"></i> Iniciar Sesion y Reservar
+        </button>
+
+        }
+      </div>
+    </div>
   </div>
+  @if (userLoginOn) {
+  <div class="row">
+    <div class="col-md-6">
+      <div class="mt-5 mt-md-0">
+        <app-create-review
+          [cabinId]="cabin.id"
+          (ratingSubmitted)="onRatingSubmitted()"
+        ></app-create-review>
+      </div>
+    </div>
+  </div>
+  }@else {
+  <div class="row">
+    <div class="col-md-6">
+      <div class="mt-5 mt-md-0">
+        <h2>¿Ya visitaste antes?</h2>
+        <p>Inicia sesion y comparte tu experiencia! 🙌</p>
+        <textarea name="" rows="3" required="true" maxlength="255" id="commentInput" id="commentInput" disabled class="form-control" placeholder="Escribe tu comentario aquí" ></textarea>
+
+
+<div class="d-flex flex-row">
+  <div class="rating">
+    <input value="5" name="rate" id="star5" type="radio"  />
+    <label title="Excelente" for="star5"></label>
+    <input value="4" name="rate" id="star4" type="radio"  />
+    <label title="Muy bueno" for="star4"></label>
+    <input value="3" name="rate" id="star3" type="radio"  />
+    <label title="Bueno" for="star3"></label>
+    <input value="2" name="rate" id="star2" type="radio" />
+    <label title="Regular" for="star2"></label>
+    <input value="1" name="rate" id="star1" type="radio"  />
+    <label title="Malo" for="star1"></label>
+  </div>
+</div>
+      </div>
+    </div>
+  </div>
+  }
+
+  <ng-template #content let-modal>
+    <div class="container py-5 d-flex flex-column align-items-center">
+      @if (isLoginMode) {
+      <app-login
+        (loginEvent)="modal.dismiss('login')"
+        [redirect]="false"
+      ></app-login>
+      <p>
+        No tienes cuenta?
+        <a
+          class="text-primary"
+          style="cursor: pointer"
+          (click)="switchToRegister()"
+        >
+          Crear cuenta</a
+        >
+      </p>
+      }@else {
+      <app-register-user
+        (loginEvent)="modal.dismiss('register')"
+        [redirect]="false"
+      ></app-register-user>
+      <p>
+        ¿Ya tienes una cuenta?
+        <a
+          class="text-primary"
+          style="cursor: pointer"
+          (click)="switchToLogin()"
+          >Inicia sesión aquí</a
+        >
+      </p>
+      }
+    </div>
+  </ng-template>
+</div>
+}@else {
+<div class=" bg-white p-3 mb-3">
+  <div class="placeholder-glow">
+    <span class="placeholder col-6" style="height: 50px;"></span>
+  </div>
+  <div class="placeholder-glow mt-2">
+    <span class="placeholder col-5" style="height: 10px;"></span>
+  </div>
+  <div class="row">
+    <div class="col-md-9">
+      <div class="placeholder-glow mt-2">
+        <span class="placeholder col-12" style="height: 500px;"></span>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="placeholder-glow mt-2">
+        <span class="placeholder col-12" style="height: 500px;"></span>
+      </div>
+    </div>
+  </div>
+  
+</div>
 }

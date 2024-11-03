@@ -13,6 +13,8 @@ import { PaymentSuccessComponent } from './pages/payment-success/payment-success
 import { PaymentErrorComponent } from './pages/payment-error/payment-error.component';
 import { PaymentPendingComponent } from './pages/payment-pending/payment-pending.component';
 import { ReportingComponent } from './pages/reporting/reporting.component';
+import { ReservationsForCabinComponent } from './pages/reporting/ReservationsForCabin/ReservationsForCabin.component';
+import { ReportByUserComponent } from './pages/reporting/report-by-user/report-by-user.component';
 
 export const routes: Routes = [
     {path:"login", component:LoginComponent},
@@ -20,13 +22,18 @@ export const routes: Routes = [
     {path:"",redirectTo:"cabins",pathMatch:"full"},
     {path:"home",component:HomeComponent},
     {path:"cabins",component:SearchCabinPageComponent},
-    {path:"cabin/create",component:CreateCabinComponent},
     {path:"cabin/:id",component:CabinDetailComponent},
-    {path:"cabin-update/:id",component:UpdateCabinComponent},
     {path:"reservation",component:CreateReservationComponent},
     {path:"profile",component:ProfileComponent},
     {path:"success/:id",component:PaymentSuccessComponent},
     {path:"error/:id",component:PaymentErrorComponent},
     {path:"pending/:id",component:PaymentPendingComponent},
-    {path:"reports",component:ReportingComponent},
+    {path:"reports",component:ReportingComponent,
+    children:[
+      {path:"cabin",component:ReservationsForCabinComponent},
+      {path:"user",component:ReportByUserComponent},
+      {path:"cabin/create",component:CreateCabinComponent},
+      {path:"cabin-update/:id",component:UpdateCabinComponent},
+    ]
+    },
 ];

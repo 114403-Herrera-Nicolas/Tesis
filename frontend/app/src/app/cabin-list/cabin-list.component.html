@@ -42,8 +42,8 @@
             </div>
             <div class="col-auto">
               <div class="text-center d-flex flex-row">
-                <div [innerHTML]="cabin.rating| startRatingProm"></div>
-                <p class="text-muted mb-0 ms-2">{{ cabin.rating }}</p>
+                <div class="text-muted" [innerHTML]="cabin.rating| startRatingProm"></div>
+               
               </div>
               <p class="card-text mb-1">
                 @if (cabin.commentsCount==1) {

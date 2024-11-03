@@ -1,7 +1,7 @@
 <h2>¿Ya visitaste antes?</h2>
 <p>Comparte tu experiencia</p>
 
-<textarea name="" rows="3" required="true" maxlength="255" #commentInput="ngModel" class="form-control" [(ngModel)]="comment" placeholder="Escribe tu comentario aquí" ></textarea>
+<textarea name="" rows="3" required="true" maxlength="255" id="commentInput" #commentInput="ngModel" class="form-control" [(ngModel)]="comment" placeholder="Escribe tu comentario aquí" ></textarea>
 
 
 <div class="d-flex flex-row">
@@ -10,11 +10,11 @@
     <label title="Excelente" for="star5"></label>
     <input value="4" name="rate" id="star4" type="radio" [(ngModel)]="rating" />
     <label title="Muy bueno" for="star4"></label>
-    <input value="3" name="rate" id="star3" type="radio" [(ngModel)]="rating" checked />
+    <input value="3" name="rate" id="star3" type="radio" [(ngModel)]="rating"  />
     <label title="Bueno" for="star3"></label>
     <input value="2" name="rate" id="star2" type="radio" [(ngModel)]="rating" />
     <label title="Regular" for="star2"></label>
-    <input value="1" name="rate" id="star1" type="radio" [(ngModel)]="rating" />
+    <input value="1" name="rate" id="star1" type="radio"  [(ngModel)]="rating" />
     <label title="Malo" for="star1"></label>
   </div>
 </div>

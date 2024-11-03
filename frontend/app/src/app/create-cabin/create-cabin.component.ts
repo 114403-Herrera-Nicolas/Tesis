@@ -21,12 +21,8 @@ import { CabinService } from '../services/cabin/Cabin.service';
   styleUrl: './create-cabin.component.css',
 })
 export class CreateCabinComponent {
-removeFeature(index: number) {
-  this.features.push(this.selectedFeatures[index]);
-  this.selectedFeatures.splice(index, 1);
-  
-}
 
+imagePreviews: string[] = [];
   cabinForm: FormGroup;
   selectedFiles: File[] = [];
   features: Feature[] = [];
@@ -54,6 +50,11 @@ removeFeature(index: number) {
   console.log("Current Selected Features:", this.selectedFeatures); // Mostrar el array de IDs seleccionados
 }
   
+removeFeature(index: number) {
+  this.features.push(this.selectedFeatures[index]);
+  this.selectedFeatures.splice(index, 1);
+  
+}
 
   constructor(
     private featureService: FeatureService,
@@ -79,8 +80,17 @@ removeFeature(index: number) {
 
   onFileSelected(event: any): void {
     const files: FileList = event.target.files;
+    this.imagePreviews.forEach(url => URL.revokeObjectURL(url));
+    this.imagePreviews = [];
     this.selectedFiles = Array.from(files);
+    this.imagePreviews = this.selectedFiles.map(file => URL.createObjectURL(file));
   }
+  goback() {
+    this.imagePreviews.forEach(url => URL.revokeObjectURL(url));
+    this.imagePreviews = [];
+    this.selectedFiles = [];
+  }
+    
 
   submitForm(): void {
     const formData = new FormData();
@@ -107,7 +117,7 @@ removeFeature(index: number) {
       featureIds: this.selectedFeatures.map((feature: Feature) => feature.id),
     };
 
-    // Llamar al servicio para crear la cabaña
+    
     this.cabinService.createCabin(formData, cabinDetails)
       .then((response) => {
         console.log('Cabin created successfully', response);
@@ -117,5 +127,10 @@ removeFeature(index: number) {
         console.error('Error creating cabin', error);
         alert('There was an error creating the cabin. Please try again.');
       });
+  }
+
+  ngOnDestroy(): void {
+    
+    this.imagePreviews.forEach(url => URL.revokeObjectURL(url));
   }
 }

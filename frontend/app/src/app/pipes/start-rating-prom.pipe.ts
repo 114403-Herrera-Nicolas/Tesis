@@ -12,13 +12,14 @@ export class StartRatingPromPipe implements PipeTransform {
     const halfStar = rating % 1 >= 0.5 ? 1 : 0; // Media estrella si el decimal es 0.5 o más
     const emptyStars = 5 - fullStars - halfStar; // Estrellas vacías
 
-    // Generar el HTML con íconos de estrellas llenas, medias y vacías
+
     const fullStarIcon = '<i class="bi bi-star-fill yellow-star"></i>';
-    const halfStarIcon = '<i class="bi bi-star-half gray-half-star"></i>';
-    const emptyStarIcon = '<i class="bi bi-star-fill gray-star"></i>';
+    const halfStarIcon = '<i class="bi bi-star-half yellow-star"></i>';
+    const emptyStarIcon = '<i class="bi bi-star yellow-star"></i>';
 
     return fullStarIcon.repeat(fullStars) +
            halfStarIcon.repeat(halfStar) +
-           emptyStarIcon.repeat(emptyStars);
+           emptyStarIcon.repeat(emptyStars) + 
+           ' ' + rating.toFixed(1);
   }
 }

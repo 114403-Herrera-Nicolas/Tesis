@@ -1,7 +1,9 @@
 
   
 <div class="d-flex flex-column align-items-center">
-  <form class="bg-white  mb-3 p-3" [formGroup]="registerForm" style="max-width: 500px">
+  <form class="mb-3 p-3" [formGroup]="registerForm" style="max-width: 500px"
+  [ngClass]="{ 'bg-white': redirect }"
+  >
     <h2 class="text-center">Únete a nosotros</h2>
     <p class="text-danger">{{ registerError }}</p>
 

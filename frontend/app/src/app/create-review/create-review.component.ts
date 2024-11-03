@@ -18,14 +18,14 @@ export class CreateReviewComponent {
 reviewRequest:ReviewRequest={
   userId: 0,
   cabinId: 0,
-  rating: 0,
+  rating: 1,
   comment: ''
 }
   @Input() cabinId:number;
   @Output() ratingSubmitted = new EventEmitter<boolean>();
   ratingSubmit:boolean=false;
   user: UserInfo;
-  rating:number=0;
+  rating:number=1;
   comment:string="";
   constructor(private loginService : LoginService,private reviewService:ReviewService) { }
   ngOnInit(): void {

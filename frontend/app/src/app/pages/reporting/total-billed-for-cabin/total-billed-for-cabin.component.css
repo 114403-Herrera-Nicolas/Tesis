@@ -1,0 +1,7 @@
+@media (max-width: 768px) {
+    h3{
+        font-size:15px;
+        text-align: center;
+        overflow-wrap: break-word;
+    }
+}

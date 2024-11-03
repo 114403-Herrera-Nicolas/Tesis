@@ -5,6 +5,7 @@ import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { LoginService } from '../auth/login.service';
 import { CabinReport } from '../../models/CabinReport';
+import { UserReservationSummaryDTO } from '../../models/UserReservationSummaryDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -120,11 +121,41 @@ export class CabinService {
 
 
 
-  getCabinsReports():Observable<CabinReport[]> {
+  getCabinsReports(startDate?: string, endDate?: string): Observable<CabinReport[]> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.loginService.userToken}`,
+    });
 
-    return this.http.get<CabinReport[]>(`${environment.urlApi}cabin/cabin-reservations`);
+    // Crear los parámetros opcionales
+    let params = new HttpParams();
+    if (startDate) {
+      params = params.set('startDate', startDate);
+    }
+    if (endDate) {
+      params = params.set('endDate', endDate);
+    }
+
+    return this.http.get<CabinReport[]>(`${environment.urlApi}cabin/cabin-reservations`, { headers, params });
+}
+
+getCabinsReportsByUsers(startDate?: string, endDate?: string): Observable<UserReservationSummaryDTO[]> {
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${this.loginService.userToken}`,
+  });
+
+  let params = new HttpParams();
+  if (startDate) {
+    params = params.set('startDate', startDate);
+  }
+  if (endDate) {
+    params = params.set('endDate', endDate);
   }
 
+  return this.http.get<UserReservationSummaryDTO[]>(`${environment.urlApi}cabin/cabin-reservations/user`, { headers, params });
+}
+
+
+  
   // Manejo de errores
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {

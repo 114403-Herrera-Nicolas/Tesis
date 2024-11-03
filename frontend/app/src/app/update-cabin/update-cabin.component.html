@@ -1,1 +1,213 @@
-<p>update-cabin works!</p>
+
+    <h3>Imágenes seleccionadas:</h3>
+    <div class="row d-flex align-items-center justify-content-center">
+      <div class="col-10 mb-2">
+        <div id="carouselExample" class="carousel slide">
+          <div class="carousel-inner">
+            @for (preview of imagePreviews; track $index) {
+            <div class="carousel-item active img-cabin-carrusel bg-dark">
+              <div class="d-flex justify-content-center mt-auto">
+                <img
+                  [src]="preview"
+                  alt=""
+                  class="d-block img img-fluid"
+                  style="height: 100%; width: auto !important"
+                />
+              </div>
+            </div>
+            }
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <form [formGroup]="cabinForm" (ngSubmit)="submitForm()" class=" mt-3 px-2 mb-5" style="width: 100%;">
+    
+    
+        @if (imagePreviews.length<1) {
+         
+      <label class="custum-file-upload" for="photos">
+      <div class="icon">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <path fill="" d="M10 1C9.73478 1 9.48043 1.10536 9.29289 1.29289L3.29289 7.29289C3.10536 7.48043 3 7.73478 3 8V20C3 21.6569 4.34315 23 6 23H7C7.55228 23 8 22.5523 8 22C8 21.4477 7.55228 21 7 21H6C5.44772 21 5 20.5523 5 20V9H10C10.5523 9 11 8.55228 11 8V3H18C18.5523 3 19 3.44772 19 4V9C19 9.55228 19.4477 10 20 10C20.5523 10 21 9.55228 21 9V4C21 2.34315 19.6569 1 18 1H10ZM9 7H6.41421L9 4.41421V7ZM14 15.5C14 14.1193 15.1193 13 16.5 13C17.8807 13 19 14.1193 19 15.5V16V17H20C21.1046 17 22 17.8954 22 19C22 20.1046 21.1046 21 20 21H13C11.8954 21 11 20.1046 11 19C11 17.8954 11.8954 17 13 17H14V16V15.5ZM16.5 11C14.142 11 12.2076 12.8136 12.0156 15.122C10.2825 15.5606 9 17.1305 9 19C9 21.2091 10.7909 23 13 23H20C22.2091 23 24 21.2091 24 19C24 17.1305 22.7175 15.5606 20.9844 15.122C20.7924 12.8136 18.858 11 16.5 11Z" clip-rule="evenodd" fill-rule="evenodd"></path> </g></svg>
+      </div>
+      <div class="text">
+         <span>Click para subir imagenes</span>
+         </div>
+         <input
+         type="file"
+         id="photos"
+         class="form-control"
+         (change)="onFileSelected($event)"
+         multiple
+         accept="image/*"
+       />
+      </label>
+        }
+        
+       @if (imagePreviews.length>0) {
+         
+        
+      
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre</label>
+              <input
+                formControlName="name"
+                type="text"
+                id="name"
+                class="form-control"
+                placeholder="Ingresa el nombre de la cabaña"
+              />
+              <div
+                *ngIf="
+                  cabinForm.get('name')?.invalid && cabinForm.get('name')?.touched
+                "
+                class="text-danger"
+              >
+                El nombre es obligatorio.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="location" class="form-label">Ubicación</label>
+              <input
+                formControlName="location"
+                type="text"
+                id="location"
+                class="form-control"
+                placeholder="Ingresa la ubicación de la cabaña"
+              />
+              <div
+                *ngIf="
+                  cabinForm.get('location')?.invalid &&
+                  cabinForm.get('location')?.touched
+                "
+                class="text-danger"
+              >
+                La ubicación es obligatoria.
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="mb-3">
+          <label for="description" class="form-label">Descripción</label>
+          <textarea
+            formControlName="description"
+            id="description"
+            class="form-control"
+            placeholder="Ingresa una descripción de la cabaña"
+            rows="4"
+          ></textarea>
+          <div
+            *ngIf="
+              cabinForm.get('description')?.invalid &&
+              cabinForm.get('description')?.touched
+            "
+            class="text-danger"
+          >
+            La descripción es obligatoria.
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="mb-3">
+              <label for="pricePerNight" class="form-label">Precio por noche</label>
+              <input
+                formControlName="pricePerNight"
+                type="number"
+                id="pricePerNight"
+                class="form-control"
+                placeholder="Ingresa el precio por noche"
+              />
+              <div
+                *ngIf="
+                  cabinForm.get('pricePerNight')?.invalid &&
+                  cabinForm.get('pricePerNight')?.touched
+                "
+                class="text-danger"
+              >
+                El precio debe ser un número positivo.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="mb-3">
+              <label for="capacity" class="form-label">Capacidad</label>
+              <input
+                formControlName="capacity"
+                type="number"
+                id="capacity"
+                class="form-control"
+                placeholder="Ingresa la capacidad de la cabaña"
+              />
+              <div
+                *ngIf="
+                  cabinForm.get('capacity')?.invalid &&
+                  cabinForm.get('capacity')?.touched
+                "
+                class="text-danger"
+              >
+                La capacidad debe ser al menos 1.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-check mb-3">
+              <input
+                formControlName="availability"
+                type="checkbox"
+                id="availability"
+                class="form-check-input"
+              />
+              <label for="availability" class="form-check-label"
+                >Disponibilidad</label
+              >
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 d-flex flex-row">
+          <select class="form-select" (change)="changeFeatureSelected($event)">
+            <option value="0">Selecciona una feature</option>
+            @for (feature of features; track $index) {
+            <option value="{{ feature.id }}">
+              {{ feature.name }}
+            </option>
+            }
+          </select>
+          <button type="button" class="btn btn-primary" (click)="addFeature()">
+            Añadir
+          </button>
+        </div>
+        <div class="mb-3 feature-container">
+          
+          @for (feature of selectedFeatures; track $index) {
+          <span (click)="removeFeature($index)"> {{ feature.name }} <i class="bi bi-x"></i></span>
+          }
+        </div>
+      
+        <button type="submit" class="btn btn-primary">Crear Cabaña</button>
+      }
+      </form>
+    

@@ -3,6 +3,8 @@ import { Chart, registerables, BarController, CategoryScale, LinearScale } from 
 import { BaseChartDirective } from 'ng2-charts';
 import { CabinService } from '../../../services/cabin/Cabin.service';
 import { CabinReport } from '../../../models/CabinReport';
+import { TotalBilledForCabinComponent } from "../total-billed-for-cabin/total-billed-for-cabin.component";
+import { FormsModule } from '@angular/forms';
 
 Chart.register(...registerables); // Registro de todos los elementos
 Chart.register(BarController, CategoryScale, LinearScale); // Registro específico del controlador de barras
@@ -10,16 +12,30 @@ Chart.register(BarController, CategoryScale, LinearScale); // Registro específi
 @Component({
   selector: 'app-ReservationsForCabin',
   standalone: true,
-  imports: [],
+  imports: [TotalBilledForCabinComponent,FormsModule],
   templateUrl: './ReservationsForCabin.component.html',
   styleUrls: ['./ReservationsForCabin.component.css']
 })
 export class ReservationsForCabinComponent implements OnInit, OnDestroy {
+
+ startDate?: string= null;
+ endDate?: string= null;
+  
   public data:CabinReport[] = [];
 
   public barChart: any;
   constructor(private cabinService:CabinService) { }
-
+  updateInfo() {
+    if (this.barChart) {
+      this.barChart.destroy();
+    }
+    this.cabinService.getCabinsReports(this.startDate,this.endDate).subscribe(data => {
+      this.data = data;
+      console.log(this.data);
+      this.createChart();
+    })
+    
+  }
   ngOnInit(): void {
     this.cabinService.getCabinsReports().subscribe(data => {
       this.data = data;

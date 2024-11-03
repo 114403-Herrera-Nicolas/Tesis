@@ -1,5 +1,6 @@
 .img-cabin{
     width: 200px !important;
+    object-fit: cover;
 }
 
 

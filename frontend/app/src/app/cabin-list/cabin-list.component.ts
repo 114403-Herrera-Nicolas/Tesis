@@ -4,10 +4,10 @@ import { Cabin } from '../models/Cabin';
 import { environment } from '../../environments/environment';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { TruncatePipe } from '../truncate.pipe';
+import { TruncatePipe } from '../pipes/truncate.pipe';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReservationsForCabinComponent } from "../pages/reporting/ReservationsForCabin/ReservationsForCabin.component";
-import { StartRatingPromPipe } from '../start-rating-prom.pipe';
+import { StartRatingPromPipe } from '../pipes/start-rating-prom.pipe';
 
 
 declare const bootstrap: any;
@@ -26,10 +26,17 @@ export class CabinListComponent {
   currentPage = 1;
   itemsPerPage = 5;
   
-  updateDisplayedCabins(): void {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    this.displayedCabins = this.cabins.slice(startIndex, startIndex + this.itemsPerPage);
-  }
+ 
+    updateDisplayedCabins(): void {
+      // Ordenar las cabañas por la propiedad 'rating' en orden descendente
+      const sortedCabins = [...this.cabins].sort((a, b) => b.rating - a.rating);
+    
+      // Calcular el índice de inicio para la página actual y tomar los elementos de la página
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      this.displayedCabins = sortedCabins.slice(startIndex, startIndex + this.itemsPerPage);
+    }
+    
+  
 
   onPageChange(page: number): void {
     this.currentPage = page;

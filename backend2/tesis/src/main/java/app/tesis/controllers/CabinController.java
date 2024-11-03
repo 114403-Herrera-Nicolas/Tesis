@@ -1,6 +1,7 @@
 package app.tesis.controllers;
 
 import app.tesis.dtos.cabin.*;
+import app.tesis.dtos.reservation.UserReservationSummaryDTO;
 import app.tesis.services.PhotoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -127,8 +129,26 @@ public class CabinController {
         return ResponseEntity.ok(cabinService.getCabinById(id));
     }
     @GetMapping("/cabin-reservations")
-    public ResponseEntity<List<CabinReservationReportDTO>> getCabinReservationReport() {
-        List<CabinReservationReportDTO> report = cabinService.getReservationReport();
+    public ResponseEntity<List<CabinReservationReportDTO>> getCabinReservationReport(
+            @RequestParam(value = "startDate", required = false) LocalDate startDate,
+            @RequestParam(value = "endDate", required = false) LocalDate endDate
+
+    ) {
+
+        // Llama al servicio con las fechas especificadas (o valores predeterminados si son nulos)
+        List<CabinReservationReportDTO> report = cabinService.getReservationReport(startDate,endDate);
         return ResponseEntity.ok(report);
     }
+
+    @GetMapping("/cabin-reservations/user")
+    public ResponseEntity<List<UserReservationSummaryDTO>> getCabinReservationReportByUserId(
+            @RequestParam(value = "startDate", required = false) LocalDate startDate,
+            @RequestParam(value = "endDate", required = false) LocalDate endDate
+    ) {
+
+        // Llama al servicio con las fechas especificadas (o valores predeterminados si son nulos)
+        List<UserReservationSummaryDTO> report = cabinService.getReservationReportByUser(startDate,endDate);
+        return ResponseEntity.ok(report);
+    }
+
 }

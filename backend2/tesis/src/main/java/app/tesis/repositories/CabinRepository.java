@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -39,8 +40,21 @@ public interface CabinRepository extends JpaRepository<Cabin,Long> {
     @Query("SELECT c.name, COUNT(r), SUM(r.priceForNight * r.totalNights) " +
             "FROM Cabin c JOIN c.reservations r " +
             "WHERE r.status = 'COMPLETED' " +
+            "AND ( r.startDate < :endDate AND r.startDate > :startDate)"+
             "GROUP BY c.name")
-    List<Object[]> findTotalBilledAndReservationCountByCabin();
+    List<Object[]> findTotalBilledAndReservationCountByCabin(@Param("startDate") LocalDate startDate,
+                                                             @Param("endDate") LocalDate endDate);
+
+
+    @Query("SELECT r.user.id, r.user.firstname,r.user.lastname, COUNT(r), SUM(r.priceForNight * r.totalNights) " +
+            "FROM Reservation r " +
+            "WHERE r.status = 'COMPLETED' "+
+            "AND (r.startDate < :endDate AND r.startDate > :startDate)"+
+            "GROUP BY r.user.id, r.user.firstname,r.user.lastname")
+    List<Object[]> findReservationCountAndTotalSpentByUser(@Param("startDate") LocalDate startDate,
+                                                           @Param("endDate") LocalDate endDate);
+
+
 
 
 

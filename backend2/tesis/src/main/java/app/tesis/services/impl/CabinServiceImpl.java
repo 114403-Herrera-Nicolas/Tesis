@@ -5,6 +5,7 @@ import app.tesis.User.Role;
 import app.tesis.User.UserService;
 import app.tesis.dtos.cabin.*;
 import app.tesis.dtos.feature.FeatureDto;
+import app.tesis.dtos.reservation.UserReservationSummaryDTO;
 import app.tesis.entities.Feature;
 import app.tesis.entities.Reservation;
 import app.tesis.entities.ReservationState;
@@ -226,8 +227,15 @@ public class CabinServiceImpl implements CabinService {
     }
 
 
-    public List<CabinReservationReportDTO> getReservationReport() {
-        List<Object[]> results = cabinRepository.findTotalBilledAndReservationCountByCabin();
+    public List<CabinReservationReportDTO> getReservationReport(LocalDate startDate,LocalDate endDate) {
+        if (startDate == null) {
+            startDate = LocalDate.of(2000, 1, 1);
+        }
+        if (endDate == null) {
+            endDate = LocalDate.of(3000, 1, 1);
+        }
+
+        List<Object[]> results = cabinRepository.findTotalBilledAndReservationCountByCabin(startDate,endDate);
         List<CabinReservationReportDTO> report = new ArrayList<>();
 
         for (Object[] result : results) {
@@ -241,4 +249,24 @@ public class CabinServiceImpl implements CabinService {
         return report;
     }
 
+    public List<UserReservationSummaryDTO> getReservationReportByUser(LocalDate startDate,LocalDate endDate) {
+        if (startDate == null) {
+            startDate = LocalDate.of(2000, 1, 1);
+        }
+        if (endDate == null) {
+            endDate = LocalDate.of(3000, 1, 1);
+        }
+        List<Object[]> results = cabinRepository.findReservationCountAndTotalSpentByUser(startDate,endDate);
+        List<UserReservationSummaryDTO> rtaList= new ArrayList<>();
+        results.forEach(x->{
+            UserReservationSummaryDTO rta= new UserReservationSummaryDTO();
+            rta.setUserId((Integer) x[0]);
+            rta.setFirstName((String) x[1]);
+            rta.setLastName((String) x[2]);
+            rta.setReservationCount((Long) x[3]);
+            rta.setTotalSpent((BigDecimal) x[4]);
+            rtaList.add(rta);
+        });
+        return rtaList;
+    }
 }
