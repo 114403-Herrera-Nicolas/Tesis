@@ -1,7 +1,7 @@
 <div class="container">
     <div class="form-group mt-3">
-        <label for="year">Año:</label>
-        <input type="number" id="year" name="year" class="form-control" min="1900" max="2100" required [(ngModel)]="year" (ngModelChange)="UpdateInfo()">
+        <h5 for="year">Año:</h5>
+        <input type="number" id="year" name="year" class="form-control mb-3" min="1900" max="2100" required [(ngModel)]="year" (ngModelChange)="UpdateInfo()">
     </div>
     <h2>Total de Reservaciones por Cabaña</h2>
     <canvas id="reservationChart"></canvas>

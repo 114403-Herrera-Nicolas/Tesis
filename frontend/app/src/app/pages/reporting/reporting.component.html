@@ -1,7 +1,14 @@
 <div class="container-fluid mb-5">
   <div class="row pt-2 mb-3">
+    
     @if (currentUrl!='/reports/cabin/create') {
-      <div class="col d-flex justify-content-end">
+      <div class="col d-flex justify-content-between">
+        <nav aria-label="breadcrumb mt-0">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/cabins">Cabañas</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Panel</li>
+          </ol>
+        </nav>
         <div class="button" (click)="downloadPDF()">
           <div class="button-wrapper">
             <div class="text">Descargar</div>
@@ -12,7 +19,14 @@
         </div>
       </div>
     }@else {
-      <div style="height: 35px;"></div>
+      <div style="height: 35px;">
+        <nav aria-label="breadcrumb mt-0">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/cabins">Cabañas</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Panel</li>
+          </ol>
+        </nav>
+      </div>
     }
   </div>
 
