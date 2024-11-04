@@ -5,3 +5,10 @@
         overflow-wrap: break-word;
     }
 }
+
+
+.page-break {
+    page-break-before: always; /* For PDF generation */
+    break-before: page; /* For browser compatibility */
+  }
+  

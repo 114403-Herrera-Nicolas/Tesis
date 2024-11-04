@@ -33,14 +33,18 @@ export class ReportingComponent {
   public downloadPDF(): void {
     const element = document.getElementById('reportContent');
     const today = new Date();
-  const formattedDate = today.toISOString().split('T')[0];
+    const formattedDate = today.toISOString().split('T')[0];
+    
     const options = {
       margin: 1,
       filename: `reporte-de-cabañas-${formattedDate}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      html2canvas: { scale: 3 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' },
+      pagebreak: { mode: ['css', 'avoid-all'] }
     };
+  
     html2pdf().from(element).set(options).save();
   }
+  
 }
