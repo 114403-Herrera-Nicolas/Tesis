@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
 import { LoginService } from '../auth/login.service';
 import { CabinReport } from '../../models/CabinReport';
 import { UserReservationSummaryDTO } from '../../models/UserReservationSummaryDTO';
+import { YearReservationSummaryDTO } from '../../models/YearReservationSummaryDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -153,7 +154,19 @@ getCabinsReportsByUsers(startDate?: string, endDate?: string): Observable<UserRe
 
   return this.http.get<UserReservationSummaryDTO[]>(`${environment.urlApi}cabin/cabin-reservations/user`, { headers, params });
 }
+getCabinsReportsByYear(year:number): Observable<YearReservationSummaryDTO[]> {
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${this.loginService.userToken}`,
+  });
 
+  let params = new HttpParams();
+  if (year) {
+    params = params.set('year', year);
+  }
+
+
+  return this.http.get<YearReservationSummaryDTO[]>(`${environment.urlApi}cabin/cabin-reservations/year`, { headers, params });
+}
 
   
   // Manejo de errores

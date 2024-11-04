@@ -15,6 +15,7 @@ import { PaymentPendingComponent } from './pages/payment-pending/payment-pending
 import { ReportingComponent } from './pages/reporting/reporting.component';
 import { ReservationsForCabinComponent } from './pages/reporting/ReservationsForCabin/ReservationsForCabin.component';
 import { ReportByUserComponent } from './pages/reporting/report-by-user/report-by-user.component';
+import { ReportByYearComponent } from './pages/reporting/report-by-year/report-by-year.component';
 
 export const routes: Routes = [
     {path:"login", component:LoginComponent},
@@ -32,6 +33,7 @@ export const routes: Routes = [
     children:[
       {path:"cabin",component:ReservationsForCabinComponent},
       {path:"user",component:ReportByUserComponent},
+      {path:"year",component:ReportByYearComponent},
       {path:"cabin/create",component:CreateCabinComponent},
       {path:"cabin-update/:id",component:UpdateCabinComponent},
     ]

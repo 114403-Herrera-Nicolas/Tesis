@@ -4,7 +4,7 @@
 @for (cabin of displayedCabins ; track $index) {
 <div class="container mb-5">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-12 padding-custom">
       <div class="card d-flex flex-sm-row bg-white">
         <img
           [src]="baseUrl + cabin.photos[0]"
@@ -40,7 +40,7 @@
                 }
               </div>
             </div>
-            <div class="col-auto">
+            <div class="col-md-auto">
               <div class="text-center d-flex flex-row">
                 <div class="text-muted" [innerHTML]="cabin.rating| startRatingProm"></div>
                

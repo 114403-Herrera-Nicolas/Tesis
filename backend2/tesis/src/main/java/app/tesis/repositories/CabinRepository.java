@@ -55,6 +55,15 @@ public interface CabinRepository extends JpaRepository<Cabin,Long> {
                                                            @Param("endDate") LocalDate endDate);
 
 
+    @Query("SELECT c.name, MONTH(r.startDate) AS month, COUNT(r), SUM(r.priceForNight * r.totalNights) " +
+            "FROM Cabin c JOIN c.reservations r " +
+            "WHERE r.status = 'COMPLETED' " +
+            "AND r.startDate BETWEEN :startDate AND :endDate " +
+            "GROUP BY c.name, MONTH(r.startDate) " +
+            "ORDER BY c.name, month")
+    List<Object[]> findTotalBilledAndReservationCountByCabinAndMonth(@Param("startDate") LocalDate startDate,
+                                                                     @Param("endDate") LocalDate endDate);
+
 
 
 

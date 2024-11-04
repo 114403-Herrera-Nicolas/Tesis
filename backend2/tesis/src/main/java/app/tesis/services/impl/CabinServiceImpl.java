@@ -5,6 +5,7 @@ import app.tesis.User.Role;
 import app.tesis.User.UserService;
 import app.tesis.dtos.cabin.*;
 import app.tesis.dtos.feature.FeatureDto;
+import app.tesis.dtos.reservation.MonthReservationSummaryDTO;
 import app.tesis.dtos.reservation.UserReservationSummaryDTO;
 import app.tesis.entities.Feature;
 import app.tesis.entities.Reservation;
@@ -224,6 +225,26 @@ public class CabinServiceImpl implements CabinService {
         cabinRepository.save(cabin);
 
         return new CreateCabinResponse("Se actualizó la cabaña con id: " + cabin.getId());
+    }
+
+    @Override
+    public List<MonthReservationSummaryDTO> getReservationReportByYear(Integer year) {
+        LocalDate startDate = LocalDate.of(year, 1, 1);
+        LocalDate endDate = LocalDate.of(year, 12, 31);
+
+        List<Object[]> results = cabinRepository.findTotalBilledAndReservationCountByCabinAndMonth(startDate, endDate);
+        List<MonthReservationSummaryDTO> report = new ArrayList<>();
+
+        for (Object[] result : results) {
+            String cabinName = (String) result[0];
+            int month = (Integer) result[1]; // Mes
+
+            long reservationCount = (Long) result[2]; // Conteo de reservas
+            BigDecimal totalBilled = (BigDecimal) result[3]; // Total facturado
+
+            report.add(new MonthReservationSummaryDTO(cabinName, month,year, reservationCount, totalBilled));
+        }
+        return report;
     }
 
 

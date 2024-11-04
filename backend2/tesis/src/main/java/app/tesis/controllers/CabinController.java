@@ -1,6 +1,7 @@
 package app.tesis.controllers;
 
 import app.tesis.dtos.cabin.*;
+import app.tesis.dtos.reservation.MonthReservationSummaryDTO;
 import app.tesis.dtos.reservation.UserReservationSummaryDTO;
 import app.tesis.services.PhotoService;
 import lombok.RequiredArgsConstructor;
@@ -148,6 +149,15 @@ public class CabinController {
 
         // Llama al servicio con las fechas especificadas (o valores predeterminados si son nulos)
         List<UserReservationSummaryDTO> report = cabinService.getReservationReportByUser(startDate,endDate);
+        return ResponseEntity.ok(report);
+    }
+    @GetMapping("/cabin-reservations/year")
+    public ResponseEntity<List<MonthReservationSummaryDTO>> getCabinReservationReportByYear(
+            @RequestParam(value = "year", required = false) Integer year
+    ) {
+
+        // Llama al servicio con las fechas especificadas (o valores predeterminados si son nulos)
+        List<MonthReservationSummaryDTO> report = cabinService.getReservationReportByYear(year);
         return ResponseEntity.ok(report);
     }
 

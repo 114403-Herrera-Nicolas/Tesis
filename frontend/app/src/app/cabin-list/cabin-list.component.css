@@ -1,6 +1,7 @@
 .img-cabin{
     width: 200px !important;
     object-fit: cover;
+    max-height: 414px;
 }
 
 
@@ -12,5 +13,8 @@
 @media (max-width: 576px) {
     .img-cabin{
         width: 100% !important;
+    }
+    .padding-custom{
+        padding: 0px;
     }
 }
