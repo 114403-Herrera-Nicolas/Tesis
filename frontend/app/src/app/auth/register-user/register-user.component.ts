@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { LoginService } from '../../services/auth/login.service';
 import { RegisterRequest } from '../../models/RegisterRequest';
@@ -8,13 +8,14 @@ import { RegisterRequest } from '../../models/RegisterRequest';
 @Component({
   selector: 'app-register-user',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterOutlet, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterOutlet, RouterLink,FormsModule],
   templateUrl: './register-user.component.html',
   styleUrl: './register-user.component.css',
 })
 export class RegisterUserComponent {
 registerError: any;
 registerForm: FormGroup;
+terms: boolean = false;
 login() {
     if (this.registerForm.valid) {
       console.log(this.registerForm.value)
@@ -71,6 +72,7 @@ login() {
       passwordCopy: ['', Validators.required],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
+      terms:[false, Validators.requiredTrue]
     }, {
       validators: matchingFieldsValidator('password', 'passwordCopy') 
     });

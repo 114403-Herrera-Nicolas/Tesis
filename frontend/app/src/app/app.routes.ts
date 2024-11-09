@@ -16,6 +16,8 @@ import { ReportingComponent } from './pages/reporting/reporting.component';
 import { ReservationsForCabinComponent } from './pages/reporting/ReservationsForCabin/ReservationsForCabin.component';
 import { ReportByUserComponent } from './pages/reporting/report-by-user/report-by-user.component';
 import { ReportByYearComponent } from './pages/reporting/report-by-year/report-by-year.component';
+import { TermsAndConditionsComponent } from './pages/terms-and-conditions/terms-and-conditions.component';
+import { FaqComponent } from './pages/faq/faq.component';
 
 export const routes: Routes = [
     {path:"login", component:LoginComponent},
@@ -29,6 +31,8 @@ export const routes: Routes = [
     {path:"success/:id",component:PaymentSuccessComponent},
     {path:"error/:id",component:PaymentErrorComponent},
     {path:"pending/:id",component:PaymentPendingComponent},
+    {path:"terms",component:TermsAndConditionsComponent},
+    {path:"faq",component:FaqComponent},
     {path:"reports",component:ReportingComponent,
     children:[
       {path:"cabin",component:ReservationsForCabinComponent},

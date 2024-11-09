@@ -1,8 +1,9 @@
-
-  
 <div class="d-flex flex-column align-items-center">
-  <form class="mb-3 p-3" [formGroup]="registerForm" style="max-width: 500px"
-  [ngClass]="{ 'bg-white': redirect }"
+  <form
+    class="mb-3 p-3"
+    [formGroup]="registerForm"
+    style="max-width: 500px"
+    [ngClass]="{ 'bg-white': redirect }"
   >
     <h2 class="text-center">Únete a nosotros</h2>
     <p class="text-danger">{{ registerError }}</p>
@@ -47,11 +48,9 @@
             </div>
           </div>
         </div>
-    
       </div>
     </div>
-    
-   
+
     <div class="form-floating mb-3">
       <input
         formControlName="username"
@@ -109,7 +108,6 @@
         <div *ngIf="passwordCopy.errors?.['required']">
           Este campo es requerido.
         </div>
-       
       </div>
       <div
         class="text-danger"
@@ -120,6 +118,18 @@
       >
         Las contraseñas no coinciden.
       </div>
+    </div>
+    <div class="form-check">
+      <input
+        type="checkbox"
+        id="terminos"
+        formControlName="terms" 
+        class="form-check-input"
+      />
+      <label for="terminos" class="form-check-label">
+        Acepto los
+        <a routerLink="/terms" target="_blank">términos y condiciones</a>
+      </label>
     </div>
 
     <button

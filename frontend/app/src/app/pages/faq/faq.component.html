@@ -1,0 +1,100 @@
+<div class="container my-4">
+  <div class="row">
+    <!-- Sidebar de navegación -->
+    <div class="col-md-3 px-3">
+      <div class="list-group bg-white list-group-flush">
+        <a class="list-group-item list-group-item-action bg-primary text-white ">
+            <strong>Secciones</strong>
+         </a>
+        <a
+          class="list-group-item list-group-item-action item-router"
+          [routerLink]="['/faq']"
+          fragment="introduccion"
+        >
+          Introducción
+        </a>
+        <a
+          class="list-group-item list-group-item-action item-router"
+          [routerLink]="['/faq']"
+          fragment="registro"
+        >
+          ¿Cómo me registro en la plataforma?
+        </a>
+        <a
+          class="list-group-item list-group-item-action item-router"
+          [routerLink]="['/faq']"
+          fragment="historial"
+        >
+          ¿Dónde puedo ver el historial de reservas?
+        </a>
+        <a
+          class="list-group-item list-group-item-action item-router"
+          [routerLink]="['/faq']"
+          fragment="metodos-pago"
+        >
+          ¿Qué métodos de pago ofrecen?
+        </a>
+        <a
+          class="list-group-item list-group-item-action item-router"
+          [routerLink]="['/faq']"
+          fragment="informacion-usuario"
+        >
+          ¿Cómo cambio mi información de usuario?
+        </a>
+      </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="col-md-9 px-3">
+      <div class="bg-white p-3">
+        <h2 id="introduccion" class="text-center mb-4">Preguntas Frecuentes</h2>
+        <p>
+          Bienvenido a nuestra sección de preguntas frecuentes. Aquí podrás
+          encontrar las respuestas a las preguntas más comunes que nuestros
+          usuarios tienen. Si no encuentras lo que buscas, no dudes en
+          contactarnos.
+        </p>
+
+        <h3 id="registro">¿Cómo me registro en la plataforma?</h3>
+        <p>
+          Para registrarte en nuestra plataforma, simplemente haz clic en el
+          botón de "Registrarse" en la página principal. Luego, completa los
+          campos con tu información personal, como nombre, correo electrónico y
+          una contraseña segura y ¡estarás listo para comenzar a usar nuestra
+          plataforma!
+        </p>
+
+        <h3 id="historial">¿Dónde puedo ver el historial de reservas?</h3>
+        <p>
+          Para ver tu historial de reservas, inicia sesión en tu cuenta y
+          dirígete a la sección ""Mi Perfil" en el menú principal. Aquí podrás
+          ver un listado completo de todas las reservas que has realizado,
+          incluyendo fechas, detalles de las propiedades y el estado de cada
+          reserva. Si tienes alguna duda sobre una reserva en específico, puedes
+          ponerte en contacto con nuestro equipo de soporte.
+        </p>
+
+        <h3 id="metodos-pago">¿Qué métodos de pago ofrecen?</h3>
+        <p>
+          Actualmente, solo aceptamos pagos a través de Mercado Pago. Puedes
+          realizar el pago utilizando tarjetas de crédito, débito o saldo de tu
+          cuenta en Mercado Pago. Si tienes algún problema con tu pago, por
+          favor contacta con nuestro soporte técnico.
+        </p>
+
+        <h3 id="informacion-usuario">
+          ¿Cómo cambio mi información de usuario?
+        </h3>
+        <p>
+          Si necesitas actualizar tu información personal (nombre, correo
+          electrónico), puedes hacerlo accediendo a la sección
+          "Mi Perfil" desde el menú principal. Allí podrás editar los campos
+          necesarios. Si deseas cambiar tu dirección de correo electrónico o
+          cualquier otro dato sensible, te recomendamos que verifiques tu nueva
+          información antes de guardar los cambios. Si necesitas asistencia
+          adicional, nuestro equipo de soporte está disponible para ayudarte.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
