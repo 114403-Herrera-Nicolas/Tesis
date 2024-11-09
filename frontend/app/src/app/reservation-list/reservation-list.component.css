@@ -13,3 +13,24 @@
         width: 100% !important;
     }
 }
+
+.badge-warning {
+    background-color: #f0ad4e; /* color amarillo */
+  }
+  
+  .badge-danger {
+    background-color: #d9534f; /* color rojo */
+  }
+  
+  .badge-success {
+    background-color: #5bde6d!important; /* color verde */
+  }
+  
+  .badge-info {
+    background-color: #5bc0de; /* color azul */
+  }
+  
+  .badge-secondary {
+    background-color: #6c757d; /* color gris */
+  }
+  

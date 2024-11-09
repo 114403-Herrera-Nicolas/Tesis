@@ -1,7 +1,7 @@
 
 @for (reservation of reservations; track $index) {
 
-    <div class="card d-flex flex-sm-row mb-3">
+    <div class="card d-flex flex-sm-row mb-3 ">
         <img
           [src]="baseUrl + reservation.urlPhotoPreview"
           alt=""
@@ -30,8 +30,11 @@
               </p>
             </div>
             <div class="col-auto">
-                <h2>{{ reservation.status }}</h2>
+              <span class="h2"  [ngClass]="getStatusClass(reservation.status)">
+                <h5>{{ reservation.status | reservationState }}</h5>
+              </span>
             </div>
+            
           </div>
         </div>
       </div>

@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.Set;
 
 public interface CabinRepository extends JpaRepository<Cabin,Long> {
-    List<Cabin> findByNameContaining(String name);
 
+    List<Cabin> findByNameContainingIgnoreCase(String name);
 
-    List<Cabin> findByLocationContaining(String location);
+    List<Cabin> findByLocationContainingIgnoreCase(String location);
 
     List<Cabin> findByPricePerNightBetween(BigDecimal minPrice, BigDecimal maxPrice);
 

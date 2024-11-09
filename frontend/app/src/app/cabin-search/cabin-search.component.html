@@ -74,11 +74,15 @@
   </div>
   <div class="col-12 col-md-3 form-floating">
     <input
+      id="destination"
       type="text"
       class="form-control"
       placeholder="¿A dónde vas?"
       name="destination"
-      ngModel
+      [(ngModel)]="model"
+      [ngbTypeahead]="search"
+      [inputFormatter]="formatter"
+      [focusFirst]="true"
     />
     <label for="destination">¿A dónde vas?</label>
   </div>

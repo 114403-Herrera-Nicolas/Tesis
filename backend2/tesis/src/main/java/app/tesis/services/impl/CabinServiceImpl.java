@@ -91,12 +91,12 @@ public class CabinServiceImpl implements CabinService {
 
         // Filtrar por nombre si se proporciona
         if (name != null && !name.isEmpty()) {
-            cabins.retainAll(cabinRepository.findByNameContaining(name));
+            cabins.retainAll(cabinRepository.findByNameContainingIgnoreCase(name));
         }
 
         // Filtrar por ubicación si se proporciona
         if (location != null && !location.isEmpty()) {
-            cabins.retainAll(cabinRepository.findByLocationContaining(location));
+            cabins.retainAll(cabinRepository.findByLocationContainingIgnoreCase(location));
         }
 
         // Filtrar por rango de precios si se proporciona
