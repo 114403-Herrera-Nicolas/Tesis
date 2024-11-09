@@ -1,17 +1,38 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CabinService } from '../services/cabin/Cabin.service';
+import { NgbTypeaheadModule, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { debounceTime, map, Observable } from 'rxjs';
 
 
 
 @Component({
   selector: 'app-cabin-search',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,NgbTypeaheadModule],
   templateUrl: './cabin-search.component.html',
   styleUrl: './cabin-search.component.css'
 })
 export class CabinSearchComponent {
+  model: string;
+  destinations: string[] = [
+    'Sierras de Córdoba','valle de Anisacate','Villa La Bolsa','Carlos paz'
+  ];
+
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(300),
+      map(term => this.destinations.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1))
+    );
+
+  formatter = (x: string) => x;
+
+
+  onSelect(event: NgbTypeaheadSelectItemEvent) {
+    console.log('Item seleccionado:', event.item);
+  }
+
+
   constructor(private cabinService: CabinService) { }
   isScreenLarge: boolean = true;
 

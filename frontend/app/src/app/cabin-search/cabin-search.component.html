@@ -16,14 +16,19 @@
     <label for="name">¿Qué estás buscando?</label>
   </div>
   <div class="form-floating">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="¿A dónde vas?"
-        name="destination"
-        ngModel
-      />
-      <label for=""> ¿A donde vas?</label>
+    <input
+      id="destination"
+      type="text"
+      class="form-control"
+      placeholder="¿A dónde vas?"
+      name="destination"
+      [(ngModel)]="model"
+      [ngbTypeahead]="search"
+      
+      [inputFormatter]="formatter"
+      [focusFirst]="true"
+    />
+    <label for="destination">¿A dónde vas?</label>
   </div>
   <div class="form-floating">
 
@@ -105,4 +110,3 @@
 
 
 }
-
