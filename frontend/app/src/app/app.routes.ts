@@ -18,6 +18,9 @@ import { ReportByUserComponent } from './pages/reporting/report-by-user/report-b
 import { ReportByYearComponent } from './pages/reporting/report-by-year/report-by-year.component';
 import { TermsAndConditionsComponent } from './pages/terms-and-conditions/terms-and-conditions.component';
 import { FaqComponent } from './pages/faq/faq.component';
+import { validatorLoginGuard } from './guards/validator-login.guard';
+import { validatorAdminGuard } from './guards/validator-admin.guard';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 export const routes: Routes = [
     {path:"login", component:LoginComponent},
@@ -26,14 +29,14 @@ export const routes: Routes = [
     {path:"home",component:HomeComponent},
     {path:"cabins",component:SearchCabinPageComponent},
     {path:"cabin/:id",component:CabinDetailComponent},
-    {path:"reservation",component:CreateReservationComponent},
-    {path:"profile",component:ProfileComponent},
-    {path:"success/:id",component:PaymentSuccessComponent},
-    {path:"error/:id",component:PaymentErrorComponent},
-    {path:"pending/:id",component:PaymentPendingComponent},
+    {path:"reservation",component:CreateReservationComponent,canActivate:[validatorLoginGuard]},
+    {path:"profile",component:ProfileComponent,canActivate:[validatorLoginGuard]},
+    {path:"success/:id",component:PaymentSuccessComponent,canActivate:[validatorLoginGuard]},
+    {path:"error/:id",component:PaymentErrorComponent,canActivate:[validatorLoginGuard]},
+    {path:"pending/:id",component:PaymentPendingComponent,canActivate:[validatorLoginGuard]},
     {path:"terms",component:TermsAndConditionsComponent},
     {path:"faq",component:FaqComponent},
-    {path:"reports",component:ReportingComponent,
+    {path:"reports",component:ReportingComponent, canActivate:[validatorAdminGuard],
     children:[
       {path:"cabin",component:ReservationsForCabinComponent},
       {path:"user",component:ReportByUserComponent},
@@ -42,4 +45,5 @@ export const routes: Routes = [
       {path:"cabin-update/:id",component:UpdateCabinComponent},
     ]
     },
+    {path:"forbidden",component:ForbiddenComponent}
 ];
